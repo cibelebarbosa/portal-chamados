@@ -1,0 +1,37 @@
+<button
+  style="
+    margin: 50px;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #ff8000;
+  "
+  type="button"
+  class="btn btn-floating"
+  (click)="openPopup()"
+>
+  Precisa de ajuda?
+</button>
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{ display: displayStyle }"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Chat Bot</h4>
+      </div>
+      <div class="modal-body">
+        <app-form></app-form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

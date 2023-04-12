@@ -1,21 +1,24 @@
+import { NavbarModule } from './components/shared/navbar/app-navbar.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppModal } from './components/modal/app-modal.component';
-import { AppModalModule } from './components/modal/app-modal.module';
+import { HomeModule } from './components/home/app-home.module';
+import { AppLoginFormModule } from './components/login/app-login.module';
+import { AdminModule } from './components/admin/app-admin.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AppModalModule
+    NavbarModule,
+    HomeModule,
+    AppLoginFormModule,
+    AdminModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

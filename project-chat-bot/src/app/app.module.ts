@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { HomeModule } from './components/home/app-home.module';
 import { AppLoginFormModule } from './components/login/app-login.module';
 import { AdminModule } from './components/admin/app-admin.module';
+import { FooterModule } from './components/shared/footer/app-footer.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import { AdminModule } from './components/admin/app-admin.module';
     HomeModule,
     AppLoginFormModule,
     AdminModule,
+    FooterModule
   ],
   providers: [],
   bootstrap: [AppComponent],

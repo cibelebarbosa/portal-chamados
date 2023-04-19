@@ -5,13 +5,14 @@
       <div class="card-header">{{ item.title }}</div>
       <div class="card-body">
         <h5 class="card-title">{{ item.status }}</h5>
+        <small>{{dataFormat(item)}}</small>
         <p class="card-text">
           {{ item.description }}
         </p>
 
         <div *ngIf="item.status === 'Em atendimento'" class="text-end">
           <button
-          style="background-color: #ff8000; color: white"
+            style="background-color: #ff8000; color: white"
             class="btn"
             type="button"
             data-toggle="collapse"
@@ -23,9 +24,9 @@
             Concluir
           </button>
         </div>
-        <div *ngIf="item.status !== 'Em atendimento'" class="text-end">
+        <div *ngIf="item.status === 'Aguardando'" class="text-end">
           <button
-          style="background-color: #ff8000; color: white"
+            style="background-color: #ff8000; color: white"
             class="btn"
             type="button"
             data-toggle="collapse"
@@ -38,7 +39,7 @@
           </button>
         </div>
       </div>
-      <div class="card-footer text-muted">{{espera(item.id)}}</div>
+      <div class="card-footer text-muted">{{ espera(item.id) }}</div>
     </div>
   </div>
 </div>

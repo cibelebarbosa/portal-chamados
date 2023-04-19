@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalComponent } from '../modal/app-modal.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-chamados',
@@ -54,5 +55,9 @@ export class ChamadosComponent implements OnInit {
     return chamado?.date
       ? diaAtual.getDate() - chamado?.date.getDate() + ' dia(s) atrás.'
       : '';
+  }
+
+  dataFormat(chamado: any){
+    moment
   }
 }

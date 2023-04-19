@@ -12,5 +12,6 @@ export class LoginFormComponent implements OnInit {
 
   validar() {
     this.logged.emit(true);
+    sessionStorage.setItem("logged", "true")
   }
 }

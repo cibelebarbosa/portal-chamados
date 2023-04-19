@@ -6,12 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app-login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  logged: boolean = false;
-  ngOnInit() {}
-
-  metodo(event: any) {
-    this.logged = event;
-    console.log(this.logged);
-
+  ngOnInit() {
+    sessionStorage.removeItem('logged');
+    sessionStorage.setItem('logged', 'false');
   }
 }

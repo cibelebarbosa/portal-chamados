@@ -8,6 +8,7 @@ import { HomeModule } from './components/home/app-home.module';
 import { AppLoginFormModule } from './components/login/app-login.module';
 import { AdminModule } from './components/admin/app-admin.module';
 import { FooterModule } from './components/shared/footer/app-footer.module';
+import { PerfilModule } from './components/perfil/app-perfil.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +19,7 @@ import { FooterModule } from './components/shared/footer/app-footer.module';
     HomeModule,
     AppLoginFormModule,
     AdminModule,
-    FooterModule
+    FooterModule, PerfilModule
   ],
   providers: [],
   bootstrap: [AppComponent],

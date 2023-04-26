@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center mt-5">
-  <div class="card col-md-4">
+  <div class="card col-md-4 shadow-sm p-3 mb-5 bg-white rounded">
     <div class="card-body">
       <h5 class="card-title">Login</h5>
       <form>
@@ -12,6 +12,16 @@
           <label class="form-label" for="form1Example2">Senha</label>
         </div>
         <a href="admin">
+          <button
+            type="button"
+            class="btn btn-block"
+            style="background-color: #ff8000"
+            (click)="validar()"
+          >
+            Entrar
+          </button>
+        </a>
+        <a href="perfil">
           <button
             type="button"
             class="btn btn-block"

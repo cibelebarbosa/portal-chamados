@@ -8,10 +8,12 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ModalComponent implements OnInit {
   @Input() chamado: Array<any> = [];
   displayStyle = 'none';
+  popUp = 1;
 
   ngOnInit() {}
 
-  openPopup() {
+  openPopup(value: number) {
+    this.popUp = value;
     this.displayStyle = 'block';
   }
 

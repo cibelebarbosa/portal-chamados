@@ -5,7 +5,7 @@
       <div class="card-header">{{ item.title }}</div>
       <div class="card-body">
         <h5 class="card-title">{{ item.status }}</h5>
-        <small>{{dataFormat(item)}}</small>
+        <small>{{ item.date | date : "shortDate" }}</small>
         <p class="card-text">
           {{ item.description }}
         </p>

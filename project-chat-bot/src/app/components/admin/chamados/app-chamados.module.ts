@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NavbarModule } from '../../shared/navbar/app-navbar.module';
@@ -7,7 +7,7 @@ import { ModalModule } from '../modal/app-modal.module';
 
 @NgModule({
   declarations: [ChamadosComponent],
-  imports: [BrowserModule, CommonModule, NavbarModule, ModalModule],
+  imports: [BrowserModule, CommonModule, NavbarModule, ModalModule, DatePipe],
   providers: [],
   bootstrap: [ChamadosComponent],
   exports: [ChamadosComponent],

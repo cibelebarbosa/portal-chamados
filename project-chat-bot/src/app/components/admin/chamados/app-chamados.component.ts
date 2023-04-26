@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalComponent } from '../modal/app-modal.component';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-chamados',
@@ -13,23 +12,26 @@ export class ChamadosComponent implements OnInit {
     {
       id: 1,
       title: 'Problema de conexão',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi mauris, dictum quis pellentesque et, lobortis vel ipsum. Sed facilisis vel quam vel maximus. Aenean id neque sit amet orci pellentesque cursus. Aenean eget bibendum ex.',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi mauris, dictum quis pellentesque et, lobortis vel ipsum. Sed facilisis vel quam vel maximus. Aenean id neque sit amet orci pellentesque cursus. Aenean eget bibendum ex.',
       status: 'Em atendimento',
-      date: new Date('04-10-2023'),
+      date: new Date('04/10/2023'),
     },
     {
       id: 2,
       title: 'Máquina não liga',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi mauris, dictum quis pellentesque et, lobortis vel ipsum. Sed facilisis vel quam vel maximus. Aenean id neque sit amet orci pellentesque cursus. Aenean eget bibendum ex.',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi mauris, dictum quis pellentesque et, lobortis vel ipsum. Sed facilisis vel quam vel maximus. Aenean id neque sit amet orci pellentesque cursus. Aenean eget bibendum ex.',
       status: 'Aguardando',
-      date: new Date('04-11-2023'),
+      date: new Date('04/11/2023'),
     },
     {
       id: 3,
       title: 'Esqueci a senha',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi mauris, dictum quis pellentesque et, lobortis vel ipsum. Sed facilisis vel quam vel maximus. Aenean id neque sit amet orci pellentesque cursus. Aenean eget bibendum ex.',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi mauris, dictum quis pellentesque et, lobortis vel ipsum. Sed facilisis vel quam vel maximus. Aenean id neque sit amet orci pellentesque cursus. Aenean eget bibendum ex.',
       status: 'Conluído',
-      date: new Date('04-12-2023'),
+      date: new Date('04/12/2023'),
     },
   ];
   chamado: Array<any> = [];
@@ -38,13 +40,14 @@ export class ChamadosComponent implements OnInit {
 
   concluir(id: number) {
     let chamado = this.chamadosList.filter((e) => e.id === id).shift();
-    this.child.openPopup();
-    this.chamado = this.chamadosList.filter((e) => e.id === id)
+    this.child.openPopup(1);
+    this.chamado = this.chamadosList.filter((e) => e.id === id);
     //update no status da api
   }
 
   atender(id: number) {
     let chamado = this.chamadosList.filter((e) => e.id === id).shift();
+    this.child.openPopup(2);
     //update no status da api
   }
 
@@ -55,9 +58,5 @@ export class ChamadosComponent implements OnInit {
     return chamado?.date
       ? diaAtual.getDate() - chamado?.date.getDate() + ' dia(s) atrás.'
       : '';
-  }
-
-  dataFormat(chamado: any){
-    moment
   }
 }

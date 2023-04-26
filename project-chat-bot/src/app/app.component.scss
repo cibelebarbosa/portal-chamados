@@ -43,11 +43,18 @@ table {
 }
 
 ::ng-deep .btn_default {
-  background-color: #ff8000 !important;
+  background-color: #f36717 !important;
   color: whitesmoke !important;
-  border: #ff8000 solid 1px !important;
+  border: #f36717 solid 1px !important;
+  border-radius: 3rem;
+}
+::ng-deep .btn_default_close {
+  background-color: whitesmoke !important;
+  color: gray !important;
+  border: gray solid 1px !important;
+  border-radius: 3rem;
 }
 
 ::ng-deep .bg_default {
-  background-color: #ff8000 !important;
+  background-color: #f36717 !important;
 }

@@ -5,15 +5,14 @@
       <div class="card-header">{{ item.title }}</div>
       <div class="card-body">
         <h5 class="card-title">{{ item.status }}</h5>
-        <small>{{ item.date | date : "shortDate" }}</small>
+        <small>{{ item.date | date : "dd/MM/yyyy" }}</small>
         <p class="card-text">
           {{ item.description }}
         </p>
 
         <div *ngIf="item.status === 'Em atendimento'" class="text-end">
           <button
-            style="background-color: #ff8000; color: white"
-            class="btn"
+            class="btn btn-primary btn_default"
             type="button"
             data-toggle="collapse"
             data-target="#collapseExample"
@@ -26,8 +25,7 @@
         </div>
         <div *ngIf="item.status === 'Aguardando'" class="text-end">
           <button
-            style="background-color: #ff8000; color: white"
-            class="btn"
+            class="btn btn-primary btn_default"
             type="button"
             data-toggle="collapse"
             data-target="#collapseExample"

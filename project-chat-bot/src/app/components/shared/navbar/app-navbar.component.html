@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg" style="background-color: #ff8000">
+<nav class="navbar navbar-expand-lg nav_style">
   <div class="container-fluid">
     <a class="navbar-brand mt-2 mt-lg-0" href="#">
       <img
@@ -8,45 +8,45 @@
         alt="MDB Logo"
         loading="lazy"
       />
-      <small style="color: white; padding-left: 30px; ">{{pageTitle}}</small>
     </a>
+    <ul *ngIf="pageTitle !== ''" class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link text-light disabled" href="#">Todos os chamados</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light disabled" href="#">Chamados abertos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light disabled" href="#">Em atendimento</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light disabled" href="#">Concluídos</a>
+      </li>
+    </ul>
     <div class="d-flex align-items-center">
       <a class="text-reset me-3" href="#">
         <i class="fas fa-shopping-cart"></i>
       </a>
 
       <div *ngIf="logged == false" class="dropdown">
-        <a
-          class="d-flex align-items-center hidden-arrow"
-          href="login"
-          id="navbarDropdownMenuAvatar"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
+        <a class="navbar-brand" href="login">
           <img
             src="../assets/img/box-arrow-in-left.svg"
             class="me-2"
             height="20"
-            alt="MDB Logo"
+            alt="Icone de login"
             loading="lazy"
           />
         </a>
       </div>
       <div *ngIf="logged" class="dropdown">
-        <a
-          class="d-flex align-items-center hidden-arrow"
-          href="login"
-          id="navbarDropdownMenuAvatar"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
+        <a class="navbar-brand" href="login">
+          <small class="text-light px-1">Sair</small>
           <img
             src="../assets/img/box-arrow-in-right.svg"
             class="me-2"
             height="20"
-            alt="MDB Logo"
+            alt="Icone de logout"
             loading="lazy"
           />
         </a>

@@ -41,3 +41,13 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
+::ng-deep .btn_default {
+  background-color: #ff8000 !important;
+  color: whitesmoke !important;
+  border: #ff8000 solid 1px !important;
+}
+
+::ng-deep .bg_default {
+  background-color: #ff8000 !important;
+}

@@ -6,7 +6,7 @@ import { AdminComponent } from './components/admin/app-admin.component';
 import { PerfilComponent } from './components/perfil/app-perfil.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent },

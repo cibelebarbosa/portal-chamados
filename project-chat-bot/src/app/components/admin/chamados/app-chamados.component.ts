@@ -72,6 +72,7 @@ export class ChamadosComponent implements OnInit {
     let chamado = this.chamadosList.filter((e: any) => e.id === id).shift();
     this.child.openPopup(1, item);
     this.chamado = this.chamadosList.filter((e: any) => e.id === id);
+    this.filtro.setConcluido(true);
   }
 
   atender(id: number, item: any) {

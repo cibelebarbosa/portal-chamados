@@ -27,7 +27,6 @@ export class ModalComponent implements OnInit {
   }
 
   send() {
-    console.log(this.chamadoAberto);
     if (this.popUp === 1) this.chamadoAberto.status = 2;
     if (this.popUp === 2) this.chamadoAberto.status = 1;
 

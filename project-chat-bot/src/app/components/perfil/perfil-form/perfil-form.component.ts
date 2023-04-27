@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./perfil-form.component.scss'],
 })
 export class PerfilFormComponent implements OnInit {
+  sucesso: boolean = false;
   cursos: any = [];
   perfilForm: FormGroup = new FormGroup({
     aluno: new FormControl(''),
@@ -29,6 +30,16 @@ export class PerfilFormComponent implements OnInit {
     let formValues = this.perfilForm.value;
     formValues.curso = parseInt(formValues.curso);
     formValues.ra = parseInt(formValues.ra);
-    this.repository.save(formValues).subscribe((data) => console.log(data));
+    this.repository.save(formValues).subscribe((data) => {
+      this.sucesso = true;
+      if (!data.error) {
+        setTimeout(() => {
+          this.sucesso = false;
+        }, 3000);
+      } else {
+        console.log(data.error);
+      }
+      this.perfilForm.reset();
+    });
   }
 }

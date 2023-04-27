@@ -5,10 +5,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppModalModule } from '../chat-modal/modal/app-modal.module';
 import { HomeComponent } from './app-home.component';
 import { FooterModule } from '../shared/footer/app-footer.module';
+import { MaterialModule } from 'src/app/material.module';
 
 @NgModule({
   declarations: [HomeComponent],
-  imports: [BrowserModule, CommonModule, AppModalModule, NavbarModule, FooterModule],
+  imports: [
+    BrowserModule,
+    CommonModule,
+    AppModalModule,
+    NavbarModule,
+    FooterModule,
+    MaterialModule,
+  ],
   providers: [],
   bootstrap: [HomeComponent],
   exports: [HomeComponent],

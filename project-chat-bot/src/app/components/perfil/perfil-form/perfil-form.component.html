@@ -1,3 +1,6 @@
+<div *ngIf="sucesso" class="alert alert-success" role="alert">
+  Chamado aberto com sucesso. Obrigado!
+</div>
 <div class="card shadow-sm p-3 mb-5 bg-white rounded">
   <div class="card-body">
     <h5 class="card-title">Precisa de ajuda? Fale conosco</h5>
@@ -10,7 +13,7 @@
       </div>
       <div class="form-outline mb-4">
         <select formControlName="curso" class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
-          <option value="0">Cursos</option>
+          <option selected>Cursos</option>
           <option *ngFor="let curso of cursos" [value]="curso.id">{{curso.curso}}</option>
         </select>
       </div>

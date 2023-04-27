@@ -6,6 +6,7 @@ import { FooterModule } from '../shared/footer/app-footer.module';
 import { AppModalModule } from '../chat-modal/modal/app-modal.module';
 import { PerfilComponent } from './app-perfil.component';
 import { PerfilFormModule } from './perfil-form/perfil-form.module';
+import { PerfilChamadosModule } from './perfil-chamados/perfil-chamados.module';
 
 @NgModule({
   declarations: [PerfilComponent],
@@ -16,6 +17,7 @@ import { PerfilFormModule } from './perfil-form/perfil-form.module';
     FooterModule,
     AppModalModule,
     PerfilFormModule,
+    PerfilChamadosModule
   ],
   providers: [],
   bootstrap: [PerfilComponent],

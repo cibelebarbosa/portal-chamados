@@ -1,0 +1,25 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5">
+  <div class="row justify-content-around col-md-12">
+    <div
+      *ngFor="let item of chamadosList"
+      class="card text-center col-md-3 mt-3"
+    >
+      <div class="card-header">{{ item.titulo }}</div>
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ translate.statusTranlation(item.status) }}
+        </h5>
+        <small>{{ item.data_registro | date : "dd/MM/yyyy" }}</small>
+        <p class="card-text">
+          {{ item.descricao }}
+        </p>
+
+        <div class="card-footer text-muted">
+          {{ espera(item.data_registro) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

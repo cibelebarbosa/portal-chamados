@@ -8,4 +8,5 @@ router.post("/chamado", ChamadoController.save);
 router.put("/chamado/:id", ChamadoController.update);
 router.delete("/chamado/:id", ChamadoController.delete);
 
+router.get("/cursos", ChamadoController.getCursos);
 module.exports = router;

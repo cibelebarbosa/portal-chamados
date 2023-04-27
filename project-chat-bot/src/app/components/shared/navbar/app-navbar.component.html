@@ -1,5 +1,16 @@
 <nav class="navbar navbar-expand-lg nav_style">
   <div class="container-fluid">
+    <button
+      *ngIf="pageTitle !== ''"
+      class="btn btn-secondary menu_icon"
+      (click)="drawer.toggle()"
+    >
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="menu"
+      ></mat-icon>
+    </button>
     <a class="navbar-brand mt-2 mt-lg-0" href="#">
       <img
         src="https://www.anhanguera.com/assets/img/Logo-Anhanguera.svg"
@@ -11,19 +22,19 @@
     </a>
     <ul *ngIf="pageTitle !== ''" class="navbar-nav me-auto mb-2 mb-lg-0">
       <li class="nav-item">
-        <a class="nav-link text-light disabled" href="#">Todos os chamados</a>
+        <button class="btn btn-secondary btn_nav" (click)="filtrarLista(3)">Todos os chamados</button>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-light disabled" href="#">Chamados abertos</a>
+        <button class="btn btn-secondary btn_nav" (click)="filtrarLista(0)">Chamados abertos</button>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-light disabled" href="#">Em atendimento</a>
+        <button class="btn btn-secondary btn_nav" (click)="filtrarLista(1)">Em atendimento</button>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-light disabled" href="#">Concluídos</a>
+        <button class="btn btn-secondary btn_nav" (click)="filtrarLista(2)">Concluídos</button>
       </li>
     </ul>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center" >
       <a class="text-reset me-3" href="#">
         <i class="fas fa-shopping-cart"></i>
       </a>

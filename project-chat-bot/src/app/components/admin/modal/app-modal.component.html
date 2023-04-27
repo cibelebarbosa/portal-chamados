@@ -8,11 +8,11 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">{{ chamado[0].title }}</h4>
+        <h4 class="modal-title">{{ chamado[0]?.titulo }}</h4>
       </div>
       <div class="modal-body">
-        <h6>{{ chamado[0].status }}</h6>
-        <p>{{ chamado[0].description }}</p>
+        <h6>{{ chamado[0]?.status }}</h6>
+        <p>{{ chamado[0]?.descricao }}</p>
         <div class="form-outline mb-4">
           <textarea class="form-control" id="form4Example3" rows="4"></textarea>
           <label class="form-label" for="textAreaExample"
@@ -27,7 +27,7 @@
         <button
           type="button"
           class="btn btn-primary btn_default"
-          (click)="closePopup()"
+          (click)="send()"
         >
           Concluir
         </button>
@@ -58,7 +58,7 @@
         <button
           type="button"
           class="btn btn-primary btn_default"
-          (click)="closePopup()"
+          (click)="send()"
         >
           Iniciar
         </button>

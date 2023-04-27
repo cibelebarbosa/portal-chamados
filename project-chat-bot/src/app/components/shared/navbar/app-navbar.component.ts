@@ -1,4 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AdminComponent } from '../../admin/app-admin.component';
+import { ChamadosComponent } from '../../admin/chamados/app-chamados.component';
+import { FiltroService } from '../../services/filter.service';
+import { RepositoryService } from './../../services/repository.service';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -8,8 +12,16 @@ import { Component, Input, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
   logged: boolean = false;
   @Input() pageTitle: string = '';
+  showFiller = false;
+  @Input() drawer: any;
+
+  constructor(private filtro: FiltroService) {}
 
   ngOnInit(): void {
     this.logged = sessionStorage.getItem('logged') === 'true' ? true : false;
+  }
+
+  filtrarLista(status: number) {
+    this.filtro.setLista(status);
   }
 }

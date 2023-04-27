@@ -1,16 +1,22 @@
-<div class="container-md">
-  <app-modal [chamado]="chamado"></app-modal>
-  <div class="d-flex justify-content-between mt-5">
-    <div *ngFor="let item of chamadosList" class="card text-center col-md-3">
-      <div class="card-header">{{ item.title }}</div>
+<app-modal [chamado]="chamado"></app-modal>
+
+<div class="container mt-5">
+  <div class="row justify-content-around col-md-12">
+    <div
+      *ngFor="let item of chamadosList"
+      class="card text-center col-md-3 mt-3"
+    >
+      <div class="card-header">{{ item.titulo }}</div>
       <div class="card-body">
-        <h5 class="card-title">{{ item.status }}</h5>
-        <small>{{ item.date | date : "dd/MM/yyyy" }}</small>
+        <h5 class="card-title">
+          {{ translate.statusTranlation(item.status) }}
+        </h5>
+        <small>{{ item.data_registro | date : "dd/MM/yyyy" }}</small>
         <p class="card-text">
-          {{ item.description }}
+          {{ item.descricao }}
         </p>
 
-        <div *ngIf="item.status === 'Em atendimento'" class="text-end">
+        <div *ngIf="item.status === 1" class="text-end">
           <button
             class="btn btn-primary btn_default"
             type="button"
@@ -18,12 +24,12 @@
             data-target="#collapseExample"
             aria-expanded="false"
             aria-controls="collapseExample"
-            (click)="concluir(item.id)"
+            (click)="concluir(item.id, item)"
           >
             Concluir
           </button>
         </div>
-        <div *ngIf="item.status === 'Aguardando'" class="text-end">
+        <div *ngIf="item.status === 0" class="text-end">
           <button
             class="btn btn-primary btn_default"
             type="button"
@@ -31,13 +37,15 @@
             data-target="#collapseExample"
             aria-expanded="false"
             aria-controls="collapseExample"
-            (click)="atender(item.id)"
+            (click)="atender(item.id, item)"
           >
             Atender
           </button>
         </div>
       </div>
-      <div class="card-footer text-muted">{{ espera(item.id) }}</div>
+      <div class="card-footer text-muted">
+        {{ espera(item.data_registro) }}
+      </div>
     </div>
   </div>
 </div>

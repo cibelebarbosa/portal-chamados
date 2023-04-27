@@ -7,12 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'project-chat-bot';
+  showFiller = false;
   constructor() {}
-  
+
   ngOnInit() {}
-  
+
   displayStyle = "none";
-  
+
   openPopup() {
     this.displayStyle = "block";
   }

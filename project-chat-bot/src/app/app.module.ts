@@ -9,6 +9,9 @@ import { AppLoginFormModule } from './components/login/app-login.module';
 import { AdminModule } from './components/admin/app-admin.module';
 import { FooterModule } from './components/shared/footer/app-footer.module';
 import { PerfilModule } from './components/perfil/app-perfil.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+import { SidenavModule } from './components/shared/sidenav/sidenav.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +22,11 @@ import { PerfilModule } from './components/perfil/app-perfil.module';
     HomeModule,
     AppLoginFormModule,
     AdminModule,
-    FooterModule, PerfilModule
+    FooterModule,
+    PerfilModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    SidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent],

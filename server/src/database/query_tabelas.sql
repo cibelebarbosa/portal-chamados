@@ -7,7 +7,12 @@ create table chamados (
     titulo varchar(30),
     descricao varchar(100),
     status int,
-    aluno int (30)
+    data_registro timestamp null default current_timestamp,
+    ra varchar(30),
+    telefone varchar(30),
+    curso int,
+    aluno varchar (30),
+    comentario varchar(30)
 );
 
 create table cursos (
@@ -20,10 +25,8 @@ create table coordenadores (
     curso varchar(100)
 );
 
-INSERT INTO cursos (curso) VALUES ('Educação Física');
-
-select * from chamados;
-
-insert into chamados ( titulo, descricao, status, ra, telefone, curso, aluno) values ( 'teste2', 'teste2', '0', '123', '123', '2', 'paulo');
-
-ALTER TABLE chamados DROP COLUMN aluno, ADD column aluno varchar(30)
+create table usuarios (
+	id int primary key auto_increment,
+    email varchar(100),
+    senha varchar(30)
+);

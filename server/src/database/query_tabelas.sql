@@ -30,3 +30,20 @@ create table usuarios (
     email varchar(100),
     senha varchar(30)
 );
+
+1,Enfermagem
+2,Administração
+3,"Cinências Contábeis"
+4,Logística
+5,"Rescursos Humanos"
+6,Pedagogia
+7,Biomedicina
+8,Farmácia
+9,EAD
+10,Psicologia
+11,Direito
+12,Engenharias
+13,Arquitetura
+14,"Análise e Desenvolvimento de Sistemas"
+15,Fisioterapia
+16,"Educação Física"

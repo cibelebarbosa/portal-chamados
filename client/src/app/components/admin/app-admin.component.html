@@ -1,0 +1,27 @@
+<app-navbar pageTitle="Chamados em aberto" [drawer]="drawer"></app-navbar>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <!-- prettier-ignore -->
+    <ul class="list-group list-group-flush" style="border: none;">
+      <li class="list-group-item"><button (click)="conteudo = 0" class="list-group-item list-group-item-action menu_style">Chamados</button>
+        <ul class="list-group list-group-flush" style="border: none;">
+          <li class="list-group-item"><button (click)="filtrarLista(3)" class="list-group-item list-group-item-action submenu_style">Todos os chamados</button></li>
+          <li class="list-group-item"><button (click)="filtrarLista(0)" class="list-group-item list-group-item-action submenu_style">Chamados em aberto</button></li>
+          <li class="list-group-item"><button (click)="filtrarLista(1)" class="list-group-item list-group-item-action submenu_style">Em atendimento</button></li>
+          <li class="list-group-item"><button (click)="filtrarLista(2)" class="list-group-item list-group-item-action submenu_style">Concluídos</button></li>
+        </ul>
+      </li>
+      <li class="list-group-item"><button (click)="conteudo = 1" class="list-group-item list-group-item-action menu_style">Coordenadores</button>
+      </li>
+      <li class="list-group-item"><button (click)="conteudo = 2" class="list-group-item list-group-item-action menu_style">Cursos</button></li>
+      <li class="list-group-item"><button (click)="conteudo = 3" class="list-group-item list-group-item-action menu_style">Relatório</button></li>
+    </ul>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <app-chamados *ngIf="conteudo === 0"></app-chamados>
+    <app-coordenadores *ngIf="conteudo === 1"></app-coordenadores>
+    <app-cursos *ngIf="conteudo === 2"></app-cursos>
+    <app-relatorio *ngIf="conteudo === 3"></app-relatorio>
+  </div>
+</mat-drawer-container>

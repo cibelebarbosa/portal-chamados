@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-center mt-5">
+  <div class="card col-md-4 shadow-sm p-3 mb-5 bg-white rounded">
+    <div class="card-body">
+      <h5 class="card-title">Login</h5>
+      <form [formGroup]="loginForm" novalidate>
+        <div class="form-outline mb-4">
+          <input
+          type="email"
+          id="form1Example1"
+          formControlName="email"
+          class="form-control"
+          required
+          />
+          <label class="form-label" for="form1Example1">E-mail*</label>
+        </div>
+        <div class="form-outline mb-4">
+          <input
+          type="password"
+          id="form1Example2"
+          formControlName="senha"
+          class="form-control"
+          required
+          />
+          <label class="form-label" for="form1Example2">Senha*</label>
+          <div class="invalid-feedback">Please provide a valid city.</div>
+        </div>
+        <div *ngIf="msgError" class="alert alert-danger" role="alert">
+          {{ msgError }}
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-block btn_default"
+          (click)="submit()"
+        >
+          Entrar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

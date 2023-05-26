@@ -21,6 +21,7 @@
           loading="lazy"
         />
       </a>
+      <a class="link_nav" href="/perfil">Abrir chamado</a>
     </div>
     <div class="d-flex align-items-center">
       <a class="text-reset me-3" href="#">
@@ -28,7 +29,7 @@
       </a>
 
       <div *ngIf="logged == false" class="dropdown">
-        <a class="navbar-brand" href="login">
+        <a class="navbar-brand" href="login" (click)="sair()">
           <img
             src="../assets/img/box-arrow-in-left.svg"
             class="me-2"
@@ -39,7 +40,7 @@
         </a>
       </div>
       <div *ngIf="logged" class="dropdown">
-        <a class="navbar-brand" href="login">
+        <a class="navbar-brand" href="login" (click)="sair()">
           <small class="text-light px-1 h6">Sair</small>
           <img
             src="../assets/img/box-arrow-in-right.svg"

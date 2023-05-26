@@ -39,9 +39,11 @@ export class LoginFormComponent implements OnInit {
       } else {
         if (res.result.message.id === 1) {
           this.router.navigate(['/admin']);
+          sessionStorage.setItem('canAccess', res.result.message.canAccess);
           sessionStorage.setItem('logged', 'true');
         } else {
-          this.router.navigate(['/perfil']);
+          this.router.navigate(['/coordenador']);
+          sessionStorage.setItem('canAccess', res.result.message.canAccess);
           sessionStorage.setItem('logged', 'true');
         }
       }

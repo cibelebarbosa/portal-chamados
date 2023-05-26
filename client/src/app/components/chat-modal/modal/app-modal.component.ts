@@ -25,7 +25,6 @@ export class AppModal implements OnInit {
 
   send() {
     let textFromatted = '';
-    console.log(this.textSend);
     this.conversation.push(this.textSend);
     this.conversation.forEach((e) => {
       textFromatted = textFromatted + e + ' ';

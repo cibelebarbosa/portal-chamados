@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RepositoryService } from '../../services/repository.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { UtilsService } from '../../shared/services/utils.service';
 
 @Component({
   selector: 'app-perfil-form',
@@ -10,40 +16,68 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class PerfilFormComponent implements OnInit {
   msgError = '';
   sucesso: boolean = false;
-  cursos: any = [];
+  coordenadoresDominio: any = [];
   perfilForm: FormGroup = this.formBuilder.group({
     aluno: ['', [Validators.required]],
     ra: ['', [Validators.required]],
-    curso: ['', [Validators.required]],
     telefone: ['', [Validators.required]],
+    email: ['', [Validators.required]],
+    coordenador: ['', [Validators.required]],
     titulo: ['', [Validators.required]],
     descricao: ['', [Validators.required]],
   });
-  constructor(private repository: RepositoryService, private formBuilder: FormBuilder) {}
+  constructor(
+    private repository: RepositoryService,
+    private formBuilder: FormBuilder,
+    private utilsService: UtilsService
+  ) {}
 
   ngOnInit(): void {
-    this.repository.getCursos().subscribe((res) => {
-      this.cursos = res.result;
+    this.repository.getAllCoordenadores().subscribe((res) => {
+      this.coordenadoresDominio = res;
     });
+
+    this.utilsService.getCoordenadores().subscribe(() => {
+      this.repository.getAllCoordenadores().subscribe((res) => {
+        this.coordenadoresDominio = res;
+      });
+    });
+  }
+
+  montarEmail(value: any) {
+    let email = `<h1>Chamado aberto com sucesso</h1>
+    <h2>${value.aluno} seu chamado foi criado no dia ${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}.</h2>
+    <h3>Chamado: ${value.titulo}</h3>
+    <p>Descrição: ${value.descricao}</p>
+    <p>Coordenador: ${this.coordenadoresDominio.filter((e: any) => e.id === value.coordenador)[0].nome}</p>`;
+
+    return email;
   }
 
   submit() {
     if (!this.perfilForm.valid) {
-      this.msgError = 'Formulário inválido'
+      this.msgError = 'Formulário inválido';
       return;
     }
     let formValues = this.perfilForm.value;
-    formValues.curso = parseInt(formValues.curso);
+    formValues.coordenador = parseInt(formValues.coordenador);
     formValues.ra = parseInt(formValues.ra);
+
     this.repository.save(formValues).subscribe((data) => {
       this.sucesso = true;
       if (!data.error) {
-        this.perfilForm.reset();
         setTimeout(() => {
           this.sucesso = false;
         }, 3000);
       } else {
+        this.sucesso = false;
         console.log(data.error);
+      }
+
+      if (this.sucesso) {
+        this.repository
+          .enviarEmail(formValues.email, this.montarEmail(formValues))
+          .subscribe(() => {});
       }
       this.perfilForm.reset();
     });

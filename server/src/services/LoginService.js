@@ -11,11 +11,26 @@ module.exports = {
             reject(error);
           }
           if (results.length > 0) {
-            console.log(results[0]);
-            resolve({id: results[0].id, msg: "Usuário logado com sucesso"});
+            resolve({id: results[0].id, msg: "Usuário logado com sucesso", canAccess: true});
           } else {
-            resolve("Usuário não está cadastrado");
+            resolve({msg: "Usuário não está cadastrado", canAccess: false});
           }
+        }
+      );
+    });
+  },
+
+  save: (email, senha) => {
+    return new Promise((resolve, reject) => {
+      db.query(
+        "INSERT INTO usuarios (email, senha) VALUES (?, ?)",
+        [email, senha],
+        (error, results) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+          resolve(results.insertId);
         }
       );
     });

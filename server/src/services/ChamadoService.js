@@ -13,6 +13,22 @@ module.exports = {
     });
   },
 
+  getAllById: (id) => {
+    return new Promise((resolve, reject) => {
+      db.query(
+        "SELECT * FROM chamados WHERE id = ?",
+        [id],
+        (error, results) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+          resolve(results);
+        }
+      );
+    });
+  },
+
   getById: (id) => {
     return new Promise((resolve, reject) => {
       db.query(
@@ -53,12 +69,11 @@ module.exports = {
     });
   },
 
-  save: (titulo, descricao, status, ra, curso, telefone, aluno) => {
+  save: (titulo, descricao, status, ra, coordenador, telefone, aluno) => {
     return new Promise((resolve, reject) => {
-      console.log(titulo, descricao, status, ra, curso, telefone, aluno);
       db.query(
-        "INSERT INTO chamados (titulo, descricao, status, ra, telefone, curso, aluno) VALUES (?, ?, ?, ?, ?, ?, ?)",
-        [titulo, descricao, status, ra, telefone, curso, aluno],
+        "INSERT INTO chamados (titulo, descricao, status, ra, telefone, coordenador, aluno) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [titulo, descricao, status, ra, telefone, coordenador, aluno],
         (error, results) => {
           if (error) {
             reject(error);
@@ -89,18 +104,6 @@ module.exports = {
   delete: (id) => {
     return new Promise((resolve, reject) => {
       db.query("DELETE FROM chamados WHERE id = ?", [id], (error, results) => {
-        if (error) {
-          reject(error);
-          return;
-        }
-        resolve(results);
-      });
-    });
-  },
-
-  getCursos: () => {
-    return new Promise((resolve, reject) => {
-      db.query("SELECT * FROM cursos", (error, results) => {
         if (error) {
           reject(error);
           return;

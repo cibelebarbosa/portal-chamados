@@ -12,6 +12,7 @@ import { PerfilModule } from './components/perfil/app-perfil.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { SidenavModule } from './components/shared/sidenav/sidenav.module';
+import { CoordenadorModule } from './components/coordenadores/coordenador.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { SidenavModule } from './components/shared/sidenav/sidenav.module';
     BrowserAnimationsModule,
     MaterialModule,
     SidenavModule,
+    CoordenadorModule
   ],
   providers: [],
   bootstrap: [AppComponent],

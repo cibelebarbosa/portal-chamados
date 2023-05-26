@@ -6,31 +6,84 @@
     <h5 class="card-title">Precisa de ajuda? Fale conosco</h5>
     <form [formGroup]="perfilForm">
       <div class="form-outline mb-4">
-        <input formControlName="aluno" type="text" id="form4Example1" class="form-control"  placeholder="Nome" />
+        <input
+          formControlName="aluno"
+          type="text"
+          id="form4Example1"
+          class="form-control"
+          placeholder="Nome"
+        />
       </div>
       <div class="form-outline mb-4">
-        <input formControlName="ra" type="text" id="form4Example1" class="form-control" placeholder="RA" />
+        <input
+          formControlName="ra"
+          type="text"
+          id="form4Example1"
+          class="form-control"
+          placeholder="RA"
+        />
       </div>
       <div class="form-outline mb-4">
-        <select formControlName="curso" class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
-          <option selected>Cursos</option>
-          <option *ngFor="let curso of cursos" [value]="curso.id">{{curso.curso}}</option>
-        </select>
+        <input
+          formControlName="telefone"
+          type="number"
+          id="form4Example2"
+          class="form-control"
+          placeholder="Telefone"
+        />
       </div>
 
       <div class="form-outline mb-4">
-        <input formControlName="telefone" type="number" id="form4Example2" class="form-control" placeholder="Telefone" />
+        <input
+          formControlName="email"
+          type="email"
+          id="form4Example2"
+          class="form-control"
+          placeholder="Email"
+        />
+      </div>
+
+      <div class="form-outline mb-4">
+        <select
+          formControlName="coordenador"
+          class="form-select"
+          id="exampleFormControlSelect1"
+          aria-label="Default select example"
+        >
+          <option selected>Selecione o coordenador</option>
+          <option *ngFor="let item of coordenadoresDominio" [value]="item.id">
+            {{ item.nome }}
+          </option>
+        </select>
+      </div>
+
+
+      <div class="form-outline mb-4">
+        <input
+          formControlName="titulo"
+          type="text"
+          id="form4Example2"
+          class="form-control"
+          placeholder="Título"
+        />
       </div>
       <div class="form-outline mb-4">
-        <input formControlName="titulo" type="text" id="form4Example2" class="form-control" placeholder="Título" />
-      </div>
-      <div class="form-outline mb-4">
-        <textarea formControlName="descricao" class="form-control" id="form4Example3" rows="4" placeholder="Descreva seu problema..."></textarea>
+        <textarea
+          formControlName="descricao"
+          class="form-control"
+          id="form4Example3"
+          rows="4"
+          placeholder="Descreva seu problema..."
+        ></textarea>
       </div>
       <div *ngIf="msgError" class="alert alert-danger" role="alert">
         {{ msgError }}
       </div>
-      <button type="submit" class="btn btn-block mb-4 btn_default" (click)="submit()">
+      <button
+        type="submit"
+        class="btn btn-block mb-4 btn_default"
+        (click)="submit()"
+      >
         Enviar
       </button>
     </form>

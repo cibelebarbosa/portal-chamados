@@ -8,9 +8,7 @@ const routes = require("./routes");
 const server = express();
 server.use(cors());
 server.use(bodyParser.urlencoded({ extended: false }));
-server.use(bodyParser.json({ limit: '50mb' }));
-server.use('/api', routes)
+server.use(bodyParser.json({ limit: "50mb" }));
+server.use("/api", routes);
 
-server.listen(process.env.PORT, ()=> {
-    console.log(`rodando ${process.env.PORT}`);
-})
+server.listen(process.env.PORT, () => {});

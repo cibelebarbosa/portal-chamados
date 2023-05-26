@@ -3,7 +3,7 @@ const ChamadoService = require("../services/ChamadoService");
 module.exports = {
   getAll: async (req, res) => {
     let json = { error: "", result: [] };
-    let status = req.query;
+    let query = req.query;
     let chamados = await ChamadoService.getAll();
 
     for (let i in chamados) {
@@ -12,20 +12,42 @@ module.exports = {
         titulo: chamados[i].titulo,
         descricao: chamados[i].descricao,
         status: chamados[i].status,
-        aluno: chamados[i].aluno,
+        coordenador: chamados[i].coordenador,
         data_registro: chamados[i].data_registro,
       });
     }
     let jsonFiltrado = [];
-    if (status.status) {
+    if (query.status) {
       json.result.forEach((item) => {
-        if (item.status == status.status) {
+        if (item.status == query.status) {
           jsonFiltrado.push(item);
         } else {
           return;
         }
       });
       json.result = jsonFiltrado;
+    } else if (query.coordenador) {
+      json.result.forEach((item) => {
+        if (item.coordenador == query.coordenador) {
+          jsonFiltrado.push(item);
+        } else {
+          return;
+        }
+      });
+      json.result = jsonFiltrado;
+    }
+
+    res.json(json);
+  },
+
+  getAllById: async (req, res) => {
+    let json = { error: "", result: {} };
+
+    let id = req.params.id;
+    let chamados = await ChamadoService.getAllById(id);
+
+    if (chamados) {
+      json.result = chamados;
     }
 
     res.json(json);
@@ -52,9 +74,8 @@ module.exports = {
     let status = 0;
     let aluno = req.body.aluno;
     let ra = req.body.ra;
-    let curso = req.body.curso;
+    let coordenador = req.body.coordenador;
     let telefone = req.body.telefone;
-
 
     if (
       titulo !== undefined &&
@@ -62,7 +83,7 @@ module.exports = {
       status !== undefined &&
       aluno !== undefined &&
       ra !== undefined &&
-      curso !== undefined &&
+      coordenador !== undefined &&
       telefone !== undefined
     ) {
       let chamado = await ChamadoService.save(
@@ -70,7 +91,7 @@ module.exports = {
         descricao,
         status,
         ra,
-        curso,
+        coordenador,
         telefone,
         aluno
       );
@@ -81,7 +102,7 @@ module.exports = {
         status,
         aluno,
         ra,
-        curso,
+        coordenador,
         telefone,
       };
     } else {
@@ -98,27 +119,32 @@ module.exports = {
     let titulo = req.body.titulo;
     let descricao = req.body.descricao;
     let status = req.body.status;
-    let aluno = req.body.aluno;
+    let coordenador = req.body.coordenador;
     let comentario = req.body.comentario;
-
-    console.log(comentario);
 
     if (
       id &&
       titulo !== undefined &&
       descricao !== undefined &&
       status !== undefined &&
-      aluno !== undefined &&
+      coordenador !== undefined &&
       comentario !== undefined
     ) {
-      await ChamadoService.update(id, titulo, descricao, status, aluno, comentario);
+      await ChamadoService.update(
+        id,
+        titulo,
+        descricao,
+        status,
+        coordenador,
+        comentario
+      );
       json.result = {
         id,
         titulo,
         descricao,
         status,
-        aluno,
-        comentario
+        coordenador,
+        comentario,
       };
     } else {
       json.error = "Campos inválidos";
@@ -132,20 +158,6 @@ module.exports = {
 
     await ChamadoService.delete(req.params.id);
 
-    res.json(json);
-  },
-
-  getCursos: async (req, res) => {
-    let json = { error: "", result: [] };
-
-    let cursos = await ChamadoService.getCursos();
-
-    for (let i in cursos) {
-      json.result.push({
-        id: cursos[i].id,
-        curso: cursos[i].curso,
-      });
-    }
     res.json(json);
   },
 };

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FiltroService } from '../services/filter.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-admin',
   templateUrl: './app-admin.component.html',
@@ -8,9 +9,14 @@ import { FiltroService } from '../services/filter.service';
 export class AdminComponent implements OnInit {
   conteudo = 0;
   showFiller = false;
-  constructor(private filtro: FiltroService) {}
+  panelOpenState = false;
+  constructor(private filtro: FiltroService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(sessionStorage.getItem('canAccess') != 'true'){
+      this.router.navigate(['/login'])
+    }
+  }
 
   filtrarLista(status: number) {
     this.filtro.setLista(status);

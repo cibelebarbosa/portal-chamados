@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/app-home.component';
 import { AdminComponent } from './components/admin/app-admin.component';
 import { PerfilComponent } from './components/perfil/app-perfil.component';
 import { CoordenadoresComponent } from './components/admin/coordenadores/coordenadores.component';
+import { CoordenadorComponent } from './components/coordenadores/coordenador.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -12,7 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'perfil', component: PerfilComponent },
-  // { path: 'coordenadores', component: CoordenadoresComponent },
+  { path: 'coordenador', component: CoordenadorComponent },
 ];
 
 @NgModule({

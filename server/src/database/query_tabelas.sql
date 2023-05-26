@@ -15,11 +15,6 @@ create table chamados (
     comentario varchar(30)
 );
 
-create table cursos (
-	id int primary key auto_increment,
-    curso varchar(100)
-);
-
 create table coordenadores (
 	id int primary key auto_increment,
     curso varchar(100)
@@ -31,19 +26,19 @@ create table usuarios (
     senha varchar(30)
 );
 
-1,Enfermagem
-2,Administração
-3,"Cinências Contábeis"
-4,Logística
-5,"Rescursos Humanos"
-6,Pedagogia
-7,Biomedicina
-8,Farmácia
-9,EAD
-10,Psicologia
-11,Direito
-12,Engenharias
-13,Arquitetura
-14,"Análise e Desenvolvimento de Sistemas"
-15,Fisioterapia
-16,"Educação Física"
+create table coordenadores (
+	id int primary key auto_increment,
+    nome varchar(100),
+    email varchar(100)
+);
+
+create table escalas (
+	id_escala int primary key auto_increment,
+    id_coordenador int,
+	FOREIGN KEY (id_coordenador) REFERENCES coordenadores(id),
+    dia int,
+    horaInicio varchar(30),
+    horaFim varchar(30)
+);
+
+

@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalComponent } from '../modal/app-modal.component';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ModalComponent } from '../../admin/modal/app-modal.component';
 import { RepositoryService } from '../../services/repository.service';
 import { TranslationService } from '../../services/translate.service';
 import { FiltroService } from '../../services/filter.service';
@@ -10,6 +10,7 @@ import { FiltroService } from '../../services/filter.service';
   styleUrls: ['./app-chamados.component.scss'],
 })
 export class ChamadosComponent implements OnInit {
+  coordenadorId: number = 0;
   @ViewChild(ModalComponent, { static: true }) child!: ModalComponent;
   chamadosList: any = [
     // {
@@ -46,7 +47,11 @@ export class ChamadosComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.carregarLista();
+    if (this.coordenadorId && this.coordenadorId !== 0) {
+      this.carregarListaCoordenador(this.coordenadorId);
+    } else {
+      this.carregarLista();
+    }
     this.filtro
       .getLista()
       .subscribe((data) => this.carregarListaFiltrada(data));
@@ -57,15 +62,30 @@ export class ChamadosComponent implements OnInit {
       this.chamadosList = res.result;
     });
   }
+  carregarListaCoordenador(id: number) {
+    this.repository.getAllById(id).subscribe((res: any) => {
+      this.chamadosList = res.result;
+    });
+  }
 
   carregarListaFiltrada(data: number) {
-    if (data === 3) {
-      this.carregarLista();
-      return;
+    if (this.coordenadorId) {
+      if (data === 3) {
+        this.carregarListaCoordenador(this.coordenadorId);
+        return;
+      }
+      this.repository.getAllByFilters(data).subscribe((data) => {
+        this.chamadosList = data.result.filter((e: any) => e.coordenador == this.coordenadorId);
+      });
+    } else {
+      if (data === 3) {
+        this.carregarLista();
+        return;
+      }
+      this.repository.getAllByFilters(data).subscribe((data) => {
+        this.chamadosList = data.result;
+      });
     }
-    this.repository.getAllByFilters(data).subscribe((data) => {
-      this.chamadosList = data.result;
-    });
   }
 
   concluir(id: number, item: any) {

@@ -13,7 +13,7 @@ export class ModalComponent implements OnInit {
   chamadoAberto: any = {};
 
   constructor(private repository: RepositoryService) {}
-comentario = "";
+  comentario = '';
   ngOnInit() {}
 
   openPopup(value: number, chamado: any) {
@@ -32,9 +32,7 @@ comentario = "";
     this.chamadoAberto.comentario = this.comentario;
     this.repository
       .updateStatus(this.chamadoAberto.id, this.chamadoAberto)
-      .subscribe((resp) => {
-        console.log(resp);
-      });
+      .subscribe((resp) => {});
     this.closePopup();
   }
 }

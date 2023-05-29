@@ -72,7 +72,7 @@ module.exports = {
   save: (titulo, descricao, status, ra, coordenador, telefone, aluno) => {
     return new Promise((resolve, reject) => {
       db.query(
-        "INSERT INTO chamados (titulo, descricao, status, ra, telefone, coordenador, aluno) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO chamados (titulo, descricao, status, ra, telefone, coordenador, aluno) VALUES ( ?, ?, ?, ?, ?, ?, ?)",
         [titulo, descricao, status, ra, telefone, coordenador, aluno],
         (error, results) => {
           if (error) {
@@ -85,20 +85,37 @@ module.exports = {
     });
   },
 
-  update: (id, titulo, descricao, status, aluno, comentario) => {
-    return new Promise((resolve, reject) => {
-      db.query(
-        "UPDATE chamados SET titulo = ?, descricao = ?, status = ?, aluno = ?, comentario = ? WHERE id = ?",
-        [titulo, descricao, status, aluno, comentario, id],
-        (error, results) => {
-          if (error) {
-            reject(error);
-            return;
+  update: (id, titulo, descricao, status, aluno, comentario, data_conclusao) => {
+    console.log(data_conclusao);
+    if(!data_conclusao){
+      return new Promise((resolve, reject) => {
+        db.query(
+          "UPDATE chamados SET titulo = ?, descricao = ?, status = ?, aluno = ?, comentario = ? WHERE id = ?",
+          [titulo, descricao, status, aluno, comentario, id],
+          (error, results) => {
+            if (error) {
+              reject(error);
+              return;
+            }
+            resolve(results);
           }
-          resolve(results);
-        }
-      );
-    });
+        );
+      });
+    }else{
+      return new Promise((resolve, reject) => {
+        db.query(
+          "UPDATE chamados SET titulo = ?, descricao = ?, status = ?, aluno = ?, comentario = ?, data_conclusao = ? WHERE id = ?",
+          [titulo, descricao, status, aluno, comentario, data_conclusao, id],
+          (error, results) => {
+            if (error) {
+              reject(error);
+              return;
+            }
+            resolve(results);
+          }
+        );
+      });
+    }
   },
 
   delete: (id) => {

@@ -62,6 +62,7 @@ export class ChamadosComponent implements OnInit {
       this.chamadosList = res.result;
     });
   }
+
   carregarListaCoordenador(id: number) {
     this.repository.getAllById(id).subscribe((res: any) => {
       this.chamadosList = res.result;

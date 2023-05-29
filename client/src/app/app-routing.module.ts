@@ -6,14 +6,18 @@ import { AdminComponent } from './components/admin/app-admin.component';
 import { PerfilComponent } from './components/perfil/app-perfil.component';
 import { CoordenadoresComponent } from './components/admin/coordenadores/coordenadores.component';
 import { CoordenadorComponent } from './components/coordenadores/coordenador.component';
+import { AutorizadoGuard } from './_guard/autorizado.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminComponent },
+  { path: 'admin', component: AdminComponent, canActivate: [AutorizadoGuard] },
   { path: 'perfil', component: PerfilComponent },
-  { path: 'coordenador', component: CoordenadorComponent },
+  {
+    path: 'coordenador',
+    component: CoordenadorComponent,
+  },
 ];
 
 @NgModule({

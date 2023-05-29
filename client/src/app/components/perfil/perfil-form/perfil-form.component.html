@@ -50,7 +50,7 @@
           id="exampleFormControlSelect1"
           aria-label="Default select example"
         >
-          <option selected>Selecione o coordenador</option>
+          <option value="" selected>Selecione o coordenador</option>
           <option *ngFor="let item of coordenadoresDominio" [value]="item.id">
             {{ item.nome }}
           </option>

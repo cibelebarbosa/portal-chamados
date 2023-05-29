@@ -1,5 +1,6 @@
 import { RepositoryService } from '../../services/repository.service';
 import { Component, Input, OnInit } from '@angular/core';
+import * as moment from "moment";
 
 @Component({
   selector: 'app-modal',
@@ -30,6 +31,12 @@ export class ModalComponent implements OnInit {
     if (this.popUp === 1) this.chamadoAberto.status = 2;
     if (this.popUp === 2) this.chamadoAberto.status = 1;
     this.chamadoAberto.comentario = this.comentario;
+
+    if(this.chamadoAberto.status === 2) this.chamadoAberto.data_conclusao = moment().format('YYYY-MM-DD hh:mm:ss');
+
+    console.log(this.chamadoAberto);
+
+
     this.repository
       .updateStatus(this.chamadoAberto.id, this.chamadoAberto)
       .subscribe((resp) => {});

@@ -14,6 +14,7 @@ module.exports = {
         status: chamados[i].status,
         coordenador: chamados[i].coordenador,
         data_registro: chamados[i].data_registro,
+        data_conclusao: chamados[i].data_conclusao,
       });
     }
     let jsonFiltrado = [];
@@ -121,6 +122,7 @@ module.exports = {
     let status = req.body.status;
     let coordenador = req.body.coordenador;
     let comentario = req.body.comentario;
+    let data_conclusao = req.body.data_conclusao;
 
     if (
       id &&
@@ -136,7 +138,8 @@ module.exports = {
         descricao,
         status,
         coordenador,
-        comentario
+        comentario,
+        data_conclusao
       );
       json.result = {
         id,
@@ -145,6 +148,7 @@ module.exports = {
         status,
         coordenador,
         comentario,
+        data_conclusao,
       };
     } else {
       json.error = "Campos inválidos";
@@ -160,4 +164,6 @@ module.exports = {
 
     res.json(json);
   },
+
+  
 };

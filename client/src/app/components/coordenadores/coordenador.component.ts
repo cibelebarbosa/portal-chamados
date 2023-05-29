@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FiltroService } from '../services/filter.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'coordenador',
@@ -8,13 +8,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./coordenador.component.scss'],
 })
 export class CoordenadorComponent implements OnInit {
+  coordenadorId = 0;
 
-  constructor(private filtro: FiltroService, private router: Router) {}
+  constructor(
+    private filtro: FiltroService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    if(sessionStorage.getItem('canAccess') != 'true'){
-      this.router.navigate(['/login'])
-    }
+    this.coordenadorId =
+      parseInt(this.route.snapshot.paramMap.get('id') ?? '0') ?? 0;
   }
 
   filtrarLista(status: number) {

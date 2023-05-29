@@ -9,6 +9,7 @@ import { UtilsService } from '../../shared/services/utils.service';
   styleUrls: ['./relatorio.component.scss'],
 })
 export class RelatorioComponent implements OnInit {
+  usuariosDominio: any = [];
   chamadosList: any = [];
   coordenadoresList: any = [];
   relatorioList: any = [];
@@ -21,6 +22,10 @@ export class RelatorioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.repository.getAllUsuarios().subscribe((res) => {
+      this.usuariosDominio = res;
+    });
+
     this.repository.getAllCoordenadores().subscribe((res: any) => {
       this.coordenadoresList = res;
     });
@@ -38,7 +43,7 @@ export class RelatorioComponent implements OnInit {
   }
 
   async carregarChamados() {
-    await this.repository.getAllPromise().then((res: any) => {
+    await this.repository.getAll().subscribe((res: any) => {
       this.chamadosList = res.result.filter((e: any) => e.status == 2);
       this.montarRelatorio();
     });
@@ -47,9 +52,12 @@ export class RelatorioComponent implements OnInit {
   montarRelatorio() {
     let listaReports: any = [];
     this.chamadosList.forEach((element: any) => {
-      let coordenador = this.coordenadoresList.filter(
-        (item: any) => item.id === element.coordenador
-      )[0].nome;
+      console.log(this.usuariosDominio);
+
+      let email = this.usuariosDominio.filter((e: any) => element.coordenador == e.id)[0].email;
+      console.log(this.coordenadoresList);
+      let coordenador = this.coordenadoresList.filter((e:any) => e.email == email)[0].nome;
+
       let registro = new Date(element.data_registro);
       let registroFormatado = moment(
         `${registro.getDate()}-${
@@ -86,7 +94,12 @@ export class RelatorioComponent implements OnInit {
     this.carregarChamados();
     if(this.coordenadorSelected === '') return;
     this.repository.getByIdCoordenadores(value).subscribe((res) => {
-      this.relatorioList = this.relatorioList.filter((e:any) => e.coordenador == res.result.coordenador[0].id)
+      let email = this.usuariosDominio.filter((e: any) => e.email == res.result.coordenador[0].email)[0].email;
+
+      console.log(this.relatorioList);
+      console.log(res.result);
+      this.relatorioList = this.relatorioList.filter((e:any) => e.coordenador_nome == res.result.coordenador[0].nome)
+
       console.log(this.chamadosList);
 
     });

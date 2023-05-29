@@ -35,4 +35,18 @@ module.exports = {
 
     res.json(json);
   },
+
+  getAll: async (req, res) => {
+    let json = { error: "", result: [] };
+    let usuarios = await LoginService.getAll();
+
+    for (let i in usuarios) {
+      json.result.push({
+        id: usuarios[i].id,
+        email: usuarios[i].email,
+        senha: usuarios[i].senha,
+      });
+    }
+    res.json(json.result);
+  },
 };

@@ -10,34 +10,9 @@ import { FiltroService } from '../../services/filter.service';
   styleUrls: ['./app-chamados.component.scss'],
 })
 export class ChamadosComponent implements OnInit {
-  coordenadorId: number = 0;
+  @Input() coordenadorId: number = 0;
   @ViewChild(ModalComponent, { static: true }) child!: ModalComponent;
-  chamadosList: any = [
-    // {
-    //   id: 1,
-    //   titulo: 'Problema de conexão',
-    //   descricao:
-    //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi mauris, dictum quis pellentesque et, lobortis vel ipsum. Sed facilisis vel quam vel maximus. Aenean id neque sit amet orci pellentesque cursus. Aenean eget bibendum ex.',
-    //   status: 1,
-    //   date: new Date('04/10/2023'),
-    // },
-    // {
-    //   id: 2,
-    //   titulo: 'Máquina não liga',
-    //   descricao:
-    //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi mauris, dictum quis pellentesque et, lobortis vel ipsum. Sed facilisis vel quam vel maximus. Aenean id neque sit amet orci pellentesque cursus. Aenean eget bibendum ex.',
-    //   status: 0,
-    //   date: new Date('04/11/2023'),
-    // },
-    // {
-    //   id: 3,
-    //   titulo: 'Esqueci a senha',
-    //   description:
-    //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisi mauris, dictum quis pellentesque et, lobortis vel ipsum. Sed facilisis vel quam vel maximus. Aenean id neque sit amet orci pellentesque cursus. Aenean eget bibendum ex.',
-    //   status: 2,
-    //   date: new Date('04/12/2023'),
-    // },
-  ];
+  chamadosList: any = [];
   chamado: Array<any> = [];
 
   constructor(
@@ -47,6 +22,8 @@ export class ChamadosComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log(this.coordenadorId);
+
     if (this.coordenadorId && this.coordenadorId !== 0) {
       this.carregarListaCoordenador(this.coordenadorId);
     } else {
@@ -76,7 +53,9 @@ export class ChamadosComponent implements OnInit {
         return;
       }
       this.repository.getAllByFilters(data).subscribe((data) => {
-        this.chamadosList = data.result.filter((e: any) => e.coordenador == this.coordenadorId);
+        this.chamadosList = data.result.filter(
+          (e: any) => e.coordenador == this.coordenadorId
+        );
       });
     } else {
       if (data === 3) {

@@ -3,6 +3,7 @@ import { ChamadosComponent } from '../chamados/app-chamados.component';
 import { FiltroService } from '../../services/filter.service';
 import { RepositoryService } from '../../services/repository.service';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AutorizacaoAdminService } from '../../services/autorizacao-admin.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,14 +16,14 @@ export class NavbarComponent implements OnInit {
   showFiller = false;
   @Input() drawer: any;
 
-  constructor() {}
+  constructor(private autorizacaoAdminService: AutorizacaoAdminService) {}
 
   ngOnInit(): void {
     this.logged = sessionStorage.getItem('logged') === 'true' ? true : false;
   }
 
   sair(){
-    sessionStorage.setItem('canAccess', 'false')
+   this.autorizacaoAdminService.deslogar();
   }
 
 }

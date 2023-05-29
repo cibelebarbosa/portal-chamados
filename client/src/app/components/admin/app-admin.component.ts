@@ -13,9 +13,9 @@ export class AdminComponent implements OnInit {
   constructor(private filtro: FiltroService, private router: Router) {}
 
   ngOnInit() {
-    if(sessionStorage.getItem('canAccess') != 'true'){
-      this.router.navigate(['/login'])
-    }
+    // if(sessionStorage.getItem('canAccess') != 'true'){
+    //   this.router.navigate(['/login'])
+    // }
   }
 
   filtrarLista(status: number) {

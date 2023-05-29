@@ -21,9 +21,10 @@ export class RepositoryService {
     return this.http.get(`${this.apiUrl}/chamados`);
   }
 
-  getAllPromise(): Promise<any> {
-    return this.http.get(`${this.apiUrl}/chamados`).toPromise();
+  getAllUsuarios(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/login`);
   }
+
   getAllById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/chamados?coordenador=${id}`);
   }

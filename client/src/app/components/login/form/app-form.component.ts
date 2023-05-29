@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { RepositoryService } from '../../services/repository.service';
 import { Router } from '@angular/router';
+import { AutorizacaoAdminService } from '../../services/autorizacao-admin.service';
 
 @Component({
   selector: 'app-login-form',
@@ -22,8 +23,9 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private repository: RepositoryService,
-    private router: Router,
-    private formBuilder: FormBuilder
+
+    private formBuilder: FormBuilder,
+    private autorizacaoAdminService: AutorizacaoAdminService
   ) {}
 
   ngOnInit() {}
@@ -38,13 +40,9 @@ export class LoginFormComponent implements OnInit {
         this.msgError = res.result.message;
       } else {
         if (res.result.message.id === 1) {
-          this.router.navigate(['/admin']);
-          sessionStorage.setItem('canAccess', res.result.message.canAccess);
-          sessionStorage.setItem('logged', 'true');
+          this.autorizacaoAdminService.autorizarAdmin();
         } else {
-          this.router.navigate(['/coordenador']);
-          sessionStorage.setItem('canAccess', res.result.message.canAccess);
-          sessionStorage.setItem('logged', 'true');
+          this.autorizacaoAdminService.autorizarCoordenador(res.result.message.id);
         }
       }
     });

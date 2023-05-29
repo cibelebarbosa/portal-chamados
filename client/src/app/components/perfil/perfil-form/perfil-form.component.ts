@@ -17,6 +17,7 @@ export class PerfilFormComponent implements OnInit {
   msgError = '';
   sucesso: boolean = false;
   coordenadoresDominio: any = [];
+  usuariosDominio: any = [];
   perfilForm: FormGroup = this.formBuilder.group({
     aluno: ['', [Validators.required]],
     ra: ['', [Validators.required]],
@@ -33,6 +34,9 @@ export class PerfilFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.repository.getAllUsuarios().subscribe((res) => {
+      this.usuariosDominio = res;
+    });
     this.repository.getAllCoordenadores().subscribe((res) => {
       this.coordenadoresDominio = res;
     });
@@ -46,10 +50,16 @@ export class PerfilFormComponent implements OnInit {
 
   montarEmail(value: any) {
     let email = `<h1>Chamado aberto com sucesso</h1>
-    <h2>${value.aluno} seu chamado foi criado no dia ${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}.</h2>
+    <h2>${value.aluno} seu chamado foi criado no dia ${new Date().getDate()}/${
+      new Date().getMonth() + 1
+    }/${new Date().getFullYear()}.</h2>
     <h3>Chamado: ${value.titulo}</h3>
     <p>Descrição: ${value.descricao}</p>
-    <p>Coordenador: ${this.coordenadoresDominio.filter((e: any) => e.id === value.coordenador)[0].nome}</p>`;
+    <p>Coordenador: ${
+      this.coordenadoresDominio.filter(
+        (e: any) => e.id === value.coordenador
+      )[0].nome
+    }</p>`;
 
     return email;
   }
@@ -59,16 +69,26 @@ export class PerfilFormComponent implements OnInit {
       this.msgError = 'Formulário inválido';
       return;
     }
+
     let formValues = this.perfilForm.value;
+    let email = this.coordenadoresDominio.filter(
+      (e: any) => parseInt(formValues.coordenador) === e.id
+    )[0].email;
+
+    formValues.coordenador = parseInt(
+      this.usuariosDominio.filter((e: any) => e.email === email)[0].id
+    );
     formValues.coordenador = parseInt(formValues.coordenador);
     formValues.ra = parseInt(formValues.ra);
 
     this.repository.save(formValues).subscribe((data) => {
-      this.sucesso = true;
       if (!data.error) {
+        this.sucesso = true;
         setTimeout(() => {
           this.sucesso = false;
         }, 3000);
+        this.perfilForm.reset();
+        this.perfilForm.get('coordenador')?.setValue('');
       } else {
         this.sucesso = false;
         console.log(data.error);
@@ -79,7 +99,6 @@ export class PerfilFormComponent implements OnInit {
           .enviarEmail(formValues.email, this.montarEmail(formValues))
           .subscribe(() => {});
       }
-      this.perfilForm.reset();
     });
   }
 }

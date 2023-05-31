@@ -86,7 +86,6 @@ module.exports = {
   },
 
   update: (id, titulo, descricao, status, aluno, comentario, data_conclusao) => {
-    console.log(data_conclusao);
     if(!data_conclusao){
       return new Promise((resolve, reject) => {
         db.query(

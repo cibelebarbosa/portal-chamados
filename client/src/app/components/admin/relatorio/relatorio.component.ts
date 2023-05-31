@@ -52,10 +52,8 @@ export class RelatorioComponent implements OnInit {
   montarRelatorio() {
     let listaReports: any = [];
     this.chamadosList.forEach((element: any) => {
-      console.log(this.usuariosDominio);
 
       let email = this.usuariosDominio.filter((e: any) => element.coordenador == e.id)[0].email;
-      console.log(this.coordenadoresList);
       let coordenador = this.coordenadoresList.filter((e:any) => e.email == email)[0].nome;
 
       let registro = new Date(element.data_registro);

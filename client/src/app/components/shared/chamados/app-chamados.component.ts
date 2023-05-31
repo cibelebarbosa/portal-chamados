@@ -1,8 +1,10 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalComponent } from '../../admin/modal/app-modal.component';
-import { RepositoryService } from '../../services/repository.service';
-import { TranslationService } from '../../services/translate.service';
-import { FiltroService } from '../../services/filter.service';
+import { RepositoryService } from '../services/repository.service';
+import { TranslationService } from '../services/translate.service';
+import { FiltroService } from '../services/filter.service';
+import { ChamadosStatusEnum } from '../enums/chamados.enum';
+import { ChamadoInterface } from '../interfaces/chamados/chamado.interface';
 
 @Component({
   selector: 'app-chamados',
@@ -12,8 +14,7 @@ import { FiltroService } from '../../services/filter.service';
 export class ChamadosComponent implements OnInit {
   @Input() coordenadorId: number = 0;
   @ViewChild(ModalComponent, { static: true }) child!: ModalComponent;
-  chamadosList: any = [];
-  chamado: Array<any> = [];
+  chamadosList: Array<ChamadoInterface> = [];
 
   constructor(
     private repository: RepositoryService,
@@ -22,8 +23,6 @@ export class ChamadosComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.coordenadorId);
-
     if (this.coordenadorId && this.coordenadorId !== 0) {
       this.carregarListaCoordenador(this.coordenadorId);
     } else {
@@ -69,13 +68,12 @@ export class ChamadosComponent implements OnInit {
   }
 
   concluir(id: number, item: any) {
-    this.child.openPopup(1, item);
-    this.chamado = this.chamadosList.filter((e: any) => e.id === id);
+    this.child.openPopup(ChamadosStatusEnum.CONCLUIDO, item);
     this.filtro.setConcluido(true);
   }
 
   atender(id: number, item: any) {
-    this.child.openPopup(2, item);
+    this.child.openPopup(ChamadosStatusEnum.EM_ATENDIMENTO, item);
   }
 
   espera(date: any): string {

@@ -1,6 +1,6 @@
 <div class="container col-md-8 mt-5">
-  <div *ngIf="false" class="alert alert-success" role="alert">
-    Coordenador cadastrado com sucesso. Obrigado!
+  <div *ngIf="sucesso.status" class="alert alert-success" role="alert">
+    {{ sucesso.msg }}
   </div>
 
   <section *ngIf="mode === 'editar'">
@@ -11,7 +11,7 @@
       (change)="getById(selectCoordenadores.value)"
       [(ngModel)]="selectValue"
     >
-      <option value="0" selected>Selecione o coordenador</option>
+      <option value="" selected>Selecione o coordenador</option>
       <option *ngFor="let item of coordenadoresDominio" [value]="item.id">
         {{ item.nome }}
       </option>

@@ -1,9 +1,5 @@
-import { AdminComponent } from '../../admin/app-admin.component';
-import { ChamadosComponent } from '../chamados/app-chamados.component';
-import { FiltroService } from '../../services/filter.service';
-import { RepositoryService } from '../../services/repository.service';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { AutorizacaoAdminService } from '../../services/autorizacao-admin.service';
+import { AutorizacaoAdminService } from '../services/autorizacao-admin.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,10 +7,10 @@ import { AutorizacaoAdminService } from '../../services/autorizacao-admin.servic
   styleUrls: ['./app-navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  logged: boolean = false;
   @Input() pageTitle: string = '';
-  showFiller = false;
   @Input() drawer: any;
+  logged: boolean = false;
+  showFiller: boolean = false;
 
   constructor(private autorizacaoAdminService: AutorizacaoAdminService) {}
 

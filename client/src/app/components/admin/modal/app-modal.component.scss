@@ -6,3 +6,10 @@
   right: 0;
   background-color: #ff8000;
 }
+
+.campo-invalido{
+  border-color: #dc3545;
+}
+.campo-invalido::placeholder{
+  color: #dc3545
+}

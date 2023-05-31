@@ -1,13 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { RepositoryService } from '../../services/repository.service';
-import { Router } from '@angular/router';
-import { AutorizacaoAdminService } from '../../services/autorizacao-admin.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RepositoryService } from '../../shared/services/repository.service';
+import { AutorizacaoAdminService } from '../../shared/services/autorizacao-admin.service';
+import { ErroInterface } from '../../shared/interfaces/mensagens/erro.interface';
 
 @Component({
   selector: 'app-login-form',
@@ -15,7 +10,8 @@ import { AutorizacaoAdminService } from '../../services/autorizacao-admin.servic
   styleUrls: ['./app-form.component.scss'],
 })
 export class LoginFormComponent implements OnInit {
-  msgError = '';
+  erro: ErroInterface = { status: false, msg: '' };
+  formInvalid: boolean = false;
   loginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     senha: ['', Validators.required],
@@ -23,26 +19,34 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private repository: RepositoryService,
-
     private formBuilder: FormBuilder,
     private autorizacaoAdminService: AutorizacaoAdminService
   ) {}
 
   ngOnInit() {}
 
-  submit() {
-    if (!this.loginForm.valid) {
-      this.msgError = 'Formulário inválido'
-      return;
+  validaFormulario() {
+    if (this.loginForm.invalid) {
+      this.erro.status = true;
+      this.erro.msg = 'Formulário inválido';
+      this.formInvalid = true;
+    } else {
+      this.submit();
     }
+  }
+
+  submit() {
     this.repository.login(this.loginForm.value).subscribe((res) => {
-      if (res.result.message === 'Usuário não está cadastrado') {
-        this.msgError = res.result.message;
+      if (res.result.message.msg === 'Usuário não está cadastrado') {
+        this.erro.msg = res.result.message.msg;
+        this.erro.status = true;
       } else {
-        if (res.result.message.id === 1) {
+        if (res.result.message.id === 34) {
           this.autorizacaoAdminService.autorizarAdmin();
         } else {
-          this.autorizacaoAdminService.autorizarCoordenador(res.result.message.id);
+          this.autorizacaoAdminService.autorizarCoordenador(
+            res.result.message.id
+          );
         }
       }
     });

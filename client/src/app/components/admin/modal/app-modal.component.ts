@@ -1,6 +1,8 @@
-import { RepositoryService } from '../../services/repository.service';
-import { Component, Input, OnInit } from '@angular/core';
-import * as moment from "moment";
+import { RepositoryService } from '../../shared/services/repository.service';
+import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
+import { ChamadosStatusEnum } from '../../shared/enums/chamados.enum';
+import { ChamadoInterface } from '../../shared/interfaces/chamados/chamado.interface';
 
 @Component({
   selector: 'app-modal',
@@ -8,16 +10,17 @@ import * as moment from "moment";
   styleUrls: ['./app-modal.component.scss'],
 })
 export class ModalComponent implements OnInit {
-  @Input() chamado: Array<any> = [];
-  displayStyle = 'none';
-  popUp = 1;
-  chamadoAberto: any = {};
+  displayStyle: string = 'none';
+  popUp: number = ChamadosStatusEnum.EM_ATENDIMENTO;
+  chamadoAberto: ChamadoInterface = {} as ChamadoInterface;
+  comentarioInvalido: boolean = false;
+  comentario: string = '';
 
   constructor(private repository: RepositoryService) {}
-  comentario = '';
+
   ngOnInit() {}
 
-  openPopup(value: number, chamado: any) {
+  openPopup(value: number, chamado: ChamadoInterface) {
     this.popUp = value;
     this.displayStyle = 'block';
     this.chamadoAberto = chamado;
@@ -25,17 +28,27 @@ export class ModalComponent implements OnInit {
 
   closePopup() {
     this.displayStyle = 'none';
+    this.comentarioInvalido = false;
+  }
+
+  validarComentario() {
+    if (!this.comentario) {
+      this.comentarioInvalido = true;
+      return;
+    } else {
+      this.chamadoAberto.comentario = this.comentario;
+      this.chamadoAberto.data_conclusao = moment().format(
+        'YYYY-MM-DD hh:mm:ss'
+      );
+      this.send();
+    }
   }
 
   send() {
-    if (this.popUp === 1) this.chamadoAberto.status = 2;
-    if (this.popUp === 2) this.chamadoAberto.status = 1;
-    this.chamadoAberto.comentario = this.comentario;
-
-    if(this.chamadoAberto.status === 2) this.chamadoAberto.data_conclusao = moment().format('YYYY-MM-DD hh:mm:ss');
-
-    console.log(this.chamadoAberto);
-
+    if (this.popUp === ChamadosStatusEnum.EM_ATENDIMENTO)
+      this.chamadoAberto.status = ChamadosStatusEnum.EM_ATENDIMENTO;
+    if (this.popUp === ChamadosStatusEnum.CONCLUIDO)
+      this.chamadoAberto.status = ChamadosStatusEnum.CONCLUIDO;
 
     this.repository
       .updateStatus(this.chamadoAberto.id, this.chamadoAberto)

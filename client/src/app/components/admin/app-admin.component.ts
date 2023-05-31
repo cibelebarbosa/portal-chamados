@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FiltroService } from '../services/filter.service';
+import { FiltroService } from '../shared/services/filter.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-admin',

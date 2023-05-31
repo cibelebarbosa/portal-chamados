@@ -1,6 +1,9 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RepositoryService } from 'src/app/components/services/repository.service';
+import { CoordenadorDominioInterface } from 'src/app/components/shared/interfaces/dominios/coordenador-dominio.interface';
+import { SucessoInterface } from 'src/app/components/shared/interfaces/mensagens/sucesso.interface';
+import { CoordenadorRequestInterface } from 'src/app/components/shared/interfaces/requests/coordenador-request.interface';
+import { RepositoryService } from 'src/app/components/shared/services/repository.service';
 import { UtilsService } from 'src/app/components/shared/services/utils.service';
 
 @Component({
@@ -10,20 +13,21 @@ import { UtilsService } from 'src/app/components/shared/services/utils.service';
 })
 export class FormComponent implements OnInit {
   @Input() mode = 'incluir';
+  @Input() edicao: boolean = false;
+
   segunda: boolean = true;
   terca: boolean = true;
   quarta: boolean = true;
   quinta: boolean = true;
   sexta: boolean = true;
 
-  selectValue = '0';
-
+  selectValue: string = '';
   edicaoId: string = '';
 
-  @Input() edicao: boolean = false;
-  coordenadoresDominio: any;
+  sucesso: SucessoInterface = { status: false, msg: '' };
+  coordenadoresDominio: Array<CoordenadorDominioInterface> = [];
 
-  public horarioInicial: string = '';
+  horarioInicial: string = '';
 
   coordenadorForm: FormGroup = this.formBuilder.group({
     nome: ['', [Validators.required]],
@@ -63,9 +67,10 @@ export class FormComponent implements OnInit {
   }
 
   montarObjeto(value?: string) {
-    let variavel = {};
+    let objetoRequest: CoordenadorRequestInterface =
+      {} as CoordenadorRequestInterface;
     if (!value) {
-      variavel = {
+      objetoRequest = {
         nome: this.coordenadorForm.get('nome')?.value,
         email: this.coordenadorForm.get('email')?.value,
         escala: [
@@ -77,30 +82,30 @@ export class FormComponent implements OnInit {
         ],
       };
     } else {
-      variavel = {
-        id: value,
+      objetoRequest = {
+        id: parseInt(value),
         nome: this.coordenadorForm.get('nome')?.value,
         email: this.coordenadorForm.get('email')?.value,
         escala: [
           !this.segunda
-            ? { id_coordenador: value, ...this.escalaForm.segunda }
+            ? { id_coordenador: parseInt(value), ...this.escalaForm.segunda }
             : null,
           !this.terca
-            ? { id_coordenador: value, ...this.escalaForm.terca }
+            ? { id_coordenador: parseInt(value), ...this.escalaForm.terca }
             : null,
           !this.quarta
-            ? { id_coordenador: value, ...this.escalaForm.quarta }
+            ? { id_coordenador: parseInt(value), ...this.escalaForm.quarta }
             : null,
           !this.quinta
-            ? { id_coordenador: value, ...this.escalaForm.quinta }
+            ? { id_coordenador: parseInt(value), ...this.escalaForm.quinta }
             : null,
           !this.sexta
-            ? { id_coordenador: value, ...this.escalaForm.sexta }
+            ? { id_coordenador: parseInt(value), ...this.escalaForm.sexta }
             : null,
         ],
       };
     }
-    return variavel;
+    return objetoRequest;
   }
 
   resetarForm() {
@@ -121,12 +126,20 @@ export class FormComponent implements OnInit {
 
   submit() {
     if (this.mode === 'incluir') {
-      this.repository
-        .loginSave(this.coordenadorForm.value)
-        .subscribe((res) => {});
       this.repository.saveCoordenador(this.montarObjeto()).subscribe((res) => {
+        this.repository
+          .loginSave({
+            ...this.coordenadorForm.value,
+            id_coordenador: res.result.id,
+          })
+          .subscribe((res) => {});
         this.utilsService.setCoordenadores(res);
         this.resetarForm();
+        this.sucesso.msg = 'Coordenador incluido com sucesso!';
+        this.sucesso.status = true;
+        setTimeout(() => {
+          this.sucesso.status = false;
+        }, 3000);
       });
     } else if (this.mode === 'editar') {
       this.repository
@@ -135,12 +148,19 @@ export class FormComponent implements OnInit {
           this.montarObjeto(this.edicaoId)
         )
         .subscribe((res) => {
+          this.sucesso.msg = 'Coordenador alterado com sucesso!';
+          this.selectValue = '';
+          this.edicao = false;
+          this.sucesso.status = true;
+          setTimeout(() => {
+            this.sucesso.status = false;
+          }, 3000);
           this.resetarForm();
         });
     }
   }
 
-  getById(value: any) {
+  getById(value: string) {
     if (value === '0') {
       this.edicao = false;
       this.resetarForm();
@@ -189,6 +209,17 @@ export class FormComponent implements OnInit {
   }
 
   delete() {
-    this.repository.deleteCoordenadores(this.edicaoId).subscribe((res) => {});
+    this.repository.deleteUsuarios(this.edicaoId).subscribe(() => {
+      this.repository.deleteCoordenadores(this.edicaoId).subscribe((res) => {
+        this.sucesso.msg = 'Coordenador removido com sucesso!';
+        this.utilsService.setCoordenadores(res);
+        this.sucesso.status = true;
+        this.selectValue = '';
+        this.edicao = false;
+        setTimeout(() => {
+          this.sucesso.status = false;
+        }, 3000);
+      });
+    });
   }
 }

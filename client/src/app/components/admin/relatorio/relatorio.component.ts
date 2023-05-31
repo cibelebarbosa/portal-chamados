@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RepositoryService } from '../../services/repository.service';
+import { RepositoryService } from '../../shared/services/repository.service';
 import * as moment from 'moment';
+import { ChamadoInterface } from '../../shared/interfaces/chamados/chamado.interface';
+import { CoordenadorDominioInterface } from '../../shared/interfaces/dominios/coordenador-dominio.interface';
 import { UtilsService } from '../../shared/services/utils.service';
 
 @Component({
@@ -9,12 +11,11 @@ import { UtilsService } from '../../shared/services/utils.service';
   styleUrls: ['./relatorio.component.scss'],
 })
 export class RelatorioComponent implements OnInit {
-  usuariosDominio: any = [];
-  chamadosList: any = [];
-  coordenadoresList: any = [];
-  relatorioList: any = [];
-  coordenadoresDominio: any = [];
-  coordenadorSelected = '';
+  chamadosList: Array<ChamadoInterface> = [];
+  coordenadoresList: Array<CoordenadorDominioInterface> = [];
+  relatorioList: Array<ChamadoInterface> = [];
+  coordenadoresDominio: Array<CoordenadorDominioInterface> = [];
+  coordenadorSelected: string = '';
 
   constructor(
     private repository: RepositoryService,
@@ -22,21 +23,15 @@ export class RelatorioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.repository.getAllUsuarios().subscribe((res) => {
-      this.usuariosDominio = res;
-    });
-
-    this.repository.getAllCoordenadores().subscribe((res: any) => {
+    this.repository.getAllCoordenadores().subscribe((res: Array<CoordenadorDominioInterface>) => {
       this.coordenadoresList = res;
-    });
-
-    this.carregarChamados();
-    this.repository.getAllCoordenadores().subscribe((res) => {
       this.coordenadoresDominio = res;
     });
 
+    this.carregarChamados();
+
     this.utilsService.getCoordenadores().subscribe(() => {
-      this.repository.getAllCoordenadores().subscribe((res) => {
+      this.repository.getAllCoordenadores().subscribe((res: Array<CoordenadorDominioInterface>) => {
         this.coordenadoresDominio = res;
       });
     });
@@ -50,11 +45,11 @@ export class RelatorioComponent implements OnInit {
   }
 
   montarRelatorio() {
-    let listaReports: any = [];
+    let listaReports: Array<ChamadoInterface> = [];
     this.chamadosList.forEach((element: any) => {
-
-      let email = this.usuariosDominio.filter((e: any) => element.coordenador == e.id)[0].email;
-      let coordenador = this.coordenadoresList.filter((e:any) => e.email == email)[0].nome;
+      let coordenador = this.coordenadoresList.filter(
+        (e: any) => e.id == element.coordenador
+      )[0].nome;
 
       let registro = new Date(element.data_registro);
       let registroFormatado = moment(
@@ -76,6 +71,7 @@ export class RelatorioComponent implements OnInit {
       element.data_conclusao = conclusaoFormatada;
 
       listaReports.push({ coordenador_nome: coordenador, ...element });
+
     });
     this.relatorioList = listaReports;
   }
@@ -84,22 +80,16 @@ export class RelatorioComponent implements OnInit {
     this.relatorioList = [];
     this.carregarChamados();
     this.coordenadorSelected = '';
-
   }
 
   getById(value: any) {
     this.relatorioList = [];
     this.carregarChamados();
-    if(this.coordenadorSelected === '') return;
+    if (this.coordenadorSelected === '') return;
     this.repository.getByIdCoordenadores(value).subscribe((res) => {
-      let email = this.usuariosDominio.filter((e: any) => e.email == res.result.coordenador[0].email)[0].email;
-
-      console.log(this.relatorioList);
-      console.log(res.result);
-      this.relatorioList = this.relatorioList.filter((e:any) => e.coordenador_nome == res.result.coordenador[0].nome)
-
-      console.log(this.chamadosList);
-
+      this.relatorioList = this.relatorioList.filter(
+        (e: any) => e.coordenador_nome == res.result.coordenador[0].nome
+      );
     });
   }
 }

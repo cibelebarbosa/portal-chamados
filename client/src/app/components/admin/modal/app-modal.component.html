@@ -3,26 +3,28 @@
   tabindex="-1"
   role="dialog"
   [ngStyle]="{ display: displayStyle }"
-  *ngIf="popUp === 1"
+  *ngIf="popUp === 2"
 >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">{{ chamado[0]?.titulo }}</h4>
+        <h4 class="modal-title">{{ chamadoAberto.titulo }}</h4>
       </div>
       <div class="modal-body">
-        <h6>{{ chamado[0]?.status }}</h6>
-        <p>{{ chamado[0]?.descricao }}</p>
+        <h6>Em atendimento</h6>
+        <p>{{ chamadoAberto.descricao }}</p>
         <div class="form-outline mb-4">
           <textarea
+          [ngClass]="comentarioInvalido ? 'campo-invalido' : ''"
             [(ngModel)]="comentario"
             class="form-control"
             id="form4Example3"
             rows="4"
+            placeholder="Comentário"
+            (ngModelChange)="comentarioInvalido = false"
           ></textarea>
-          <label class="form-label" for="textAreaExample"
-            ><small> Comentário</small></label
-          >
+
+          <small *ngIf="comentarioInvalido" class="text-danger">Por favor insira um comentário.</small>
         </div>
       </div>
       <div class="modal-footer">
@@ -36,7 +38,7 @@
         <button
           type="button"
           class="btn btn-primary btn_default"
-          (click)="send()"
+          (click)="validarComentario()"
         >
           Concluir
         </button>
@@ -50,7 +52,7 @@
   tabindex="-1"
   role="dialog"
   [ngStyle]="{ display: displayStyle }"
-  *ngIf="popUp === 2"
+  *ngIf="popUp === 1"
 >
   <div class="modal-dialog" role="document">
     <div class="modal-content">

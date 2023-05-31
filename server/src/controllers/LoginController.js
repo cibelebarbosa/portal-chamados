@@ -21,13 +21,15 @@ module.exports = {
 
     let email = req.body.email;
     let senha = req.body.senha;
+    let id_coordenador = req.body.id_coordenador;
 
     if (email !== undefined && senha !== undefined) {
-      let login = await LoginService.save(email, senha);
+      let login = await LoginService.save(email, senha, id_coordenador);
       json.result = {
         id: login,
         email,
         senha,
+        id_coordenador
       };
     } else {
       json.error = "Campos inválidos";
@@ -48,5 +50,11 @@ module.exports = {
       });
     }
     res.json(json.result);
+  },
+
+  delete: async (req, res) => {
+    let json = { error: "", result: {} };
+    await LoginService.delete(req.params.id);
+    res.json(json);
   },
 };

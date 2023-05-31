@@ -60,6 +60,10 @@ export class RepositoryService {
     return this.http.delete(`${this.apiUrl}/coordenadores/${id}`);
   }
 
+  deleteUsuarios(id: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/login/${id}`);
+  }
+
   enviarEmail(email: string, mensagem: string): Observable<any> {
     let body = {
       email: email,

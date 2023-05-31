@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RepositoryService } from '../services/repository.service';
-import { TranslationService } from '../services/translate.service';
-import { FiltroService } from '../services/filter.service';
+import { RepositoryService } from '../shared/services/repository.service';
+import { TranslationService } from '../shared/services/translate.service';
+import { FiltroService } from '../shared/services/filter.service';
+import { ChamadoInterface } from '../shared/interfaces/chamados/chamado.interface';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +10,7 @@ import { FiltroService } from '../services/filter.service';
   styleUrls: ['./app-home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  chamadosList: any = [];
-  chamado: Array<any> = [];
+  chamadosList: Array<ChamadoInterface> = [];
 
   constructor(
     private repository: RepositoryService,
@@ -26,8 +26,8 @@ export class HomeComponent implements OnInit {
   }
 
   carregarLista() {
-    let chamadosAbertos: any = [];
-    this.repository.getAll().subscribe((res: any) => {
+    let chamadosAbertos: Array<ChamadoInterface> = [];
+    this.repository.getAll().subscribe((res) => {
       res.result.forEach((e: any) => {
         if (e.status !== 2) chamadosAbertos.push(e);
       });

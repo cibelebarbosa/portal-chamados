@@ -15,6 +15,7 @@ router.delete("/chamado/:id", ChamadoController.delete);
 router.post("/login", LoginController.login)
 router.post("/loginsave", LoginController.save);
 router.get("/login", LoginController.getAll);
+router.delete("/login/:id", LoginController.delete);
 
 router.post("/coordenadores", CoordenadorController.save)
 router.get("/coordenadores", CoordenadorController.getAllCoordenadores)

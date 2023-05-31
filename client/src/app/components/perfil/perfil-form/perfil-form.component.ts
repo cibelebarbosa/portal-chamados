@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RepositoryService } from '../../services/repository.service';
+import { RepositoryService } from '../../shared/services/repository.service';
 import {
   FormBuilder,
   FormControl,
@@ -17,7 +17,6 @@ export class PerfilFormComponent implements OnInit {
   msgError = '';
   sucesso: boolean = false;
   coordenadoresDominio: any = [];
-  usuariosDominio: any = [];
   perfilForm: FormGroup = this.formBuilder.group({
     aluno: ['', [Validators.required]],
     ra: ['', [Validators.required]],
@@ -34,9 +33,6 @@ export class PerfilFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.repository.getAllUsuarios().subscribe((res) => {
-      this.usuariosDominio = res;
-    });
     this.repository.getAllCoordenadores().subscribe((res) => {
       this.coordenadoresDominio = res;
     });
@@ -71,15 +67,11 @@ export class PerfilFormComponent implements OnInit {
     }
 
     let formValues = this.perfilForm.value;
-    let email = this.coordenadoresDominio.filter(
-      (e: any) => parseInt(formValues.coordenador) === e.id
-    )[0].email;
-
-    formValues.coordenador = parseInt(
-      this.usuariosDominio.filter((e: any) => e.email === email)[0].id
-    );
     formValues.coordenador = parseInt(formValues.coordenador);
     formValues.ra = parseInt(formValues.ra);
+
+    console.log(formValues);
+
 
     this.repository.save(formValues).subscribe((data) => {
       if (!data.error) {

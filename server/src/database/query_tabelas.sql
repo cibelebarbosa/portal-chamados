@@ -15,15 +15,12 @@ create table chamados (
     comentario varchar(30)
 );
 
-create table coordenadores (
-	id int primary key auto_increment,
-    curso varchar(100)
-);
-
 create table usuarios (
 	id int primary key auto_increment,
+    id_coordenador int,
     email varchar(100),
-    senha varchar(30)
+    senha varchar(30),
+    FOREIGN KEY (id_coordenador) REFERENCES coordenadores(id)
 );
 
 create table coordenadores (

@@ -70,9 +70,6 @@ export class PerfilFormComponent implements OnInit {
     formValues.coordenador = parseInt(formValues.coordenador);
     formValues.ra = parseInt(formValues.ra);
 
-    console.log(formValues);
-
-
     this.repository.save(formValues).subscribe((data) => {
       if (!data.error) {
         this.sucesso = true;
@@ -84,7 +81,6 @@ export class PerfilFormComponent implements OnInit {
         this.utilsService.setChamados(true);
       } else {
         this.sucesso = false;
-        console.log(data.error);
       }
 
       if (this.sucesso) {

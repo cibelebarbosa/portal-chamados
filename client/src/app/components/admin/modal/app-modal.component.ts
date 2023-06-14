@@ -44,8 +44,6 @@ export class ModalComponent implements OnInit {
       this.chamadoAberto.data_conclusao = moment(new Date()).format(
         'YYYY-MM-DD H:mm:ss'
       );
-      console.log(this.chamadoAberto.data_conclusao);
-
       this.send();
     }
   }

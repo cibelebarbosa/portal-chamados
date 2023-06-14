@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
     this.utilsService.getChamados().subscribe((data) => {
       this.carregarLista();
     });
+
   }
 
   carregarLista() {

@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div>
       <button
-        *ngIf="pageTitle !== ''"
+      *ngIf="pageTitle === 'Administrador' || pageTitle === 'Coordenador'"
         class="btn btn-secondary menu_icon"
         (click)="drawer.toggle()"
       >
@@ -12,7 +12,20 @@
           fontIcon="menu"
         ></mat-icon>
       </button>
-      <a class="navbar-brand mt-2 mt-lg-0" href="#">
+      <a
+        *ngIf="pageTitle !== 'Administrador' && pageTitle !== 'Coordenador'"
+        class="navbar-brand mt-lg-0"
+        href="#"
+      >
+        <img
+          src="https://www.anhanguera.com/assets/img/Logo-Anhanguera.svg"
+          class="me-2 mt-2 mb-2 "
+          height="30"
+          alt="MDB Logo"
+          loading="lazy"
+        />
+      </a>
+      <a *ngIf="pageTitle === 'Administrador' || pageTitle === 'Coordenador'">
         <img
           src="https://www.anhanguera.com/assets/img/Logo-Anhanguera.svg"
           class="me-2"
@@ -21,7 +34,12 @@
           loading="lazy"
         />
       </a>
-      <a class="link_nav" href="/perfil">Abrir chamado</a>
+      <a
+        *ngIf="pageTitle !== 'Administrador' && pageTitle !== 'Coordenador'"
+        class="link_nav"
+        href="/perfil"
+        >Abrir chamado</a
+      >
     </div>
     <div class="d-flex align-items-center">
       <a class="text-reset me-3" href="#">

@@ -8,7 +8,6 @@ module.exports = {
           reject(error);
           return;
         }
-        console.log(results);
         resolve(results);
       });
     });

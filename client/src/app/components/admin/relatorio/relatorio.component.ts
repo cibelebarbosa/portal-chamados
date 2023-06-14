@@ -48,7 +48,7 @@ export class RelatorioComponent implements OnInit {
     this.chamadosList.forEach((element: any) => {
       let coordenador = this.coordenadoresList.filter(
         (e: any) => e.id == element.coordenador
-      )[0].nome;
+      )[0]?.nome;
 
       let registro = new Date(element.data_registro);
       let registroFormatado = moment(

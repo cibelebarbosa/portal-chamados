@@ -8,4 +8,5 @@ export interface ChamadoInterface {
   status: number;
   titulo: string;
   coordenador_nome?: string;
+  tempo_conclusao: number;
 }

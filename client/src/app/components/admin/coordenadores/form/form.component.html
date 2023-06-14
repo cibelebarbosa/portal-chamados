@@ -21,16 +21,15 @@
 
   <section *ngIf="mode === 'incluir' || edicao === true">
     <form [formGroup]="coordenadorForm">
-      <div class="row mb-4">
+      <div *ngIf="mode === 'incluir'" class="row mb-4">
         <div class="col-md-4">
           <div class="form-outline">
             <input
               formControlName="nome"
               type="text"
-              id="form3Example1"
               class="form-control"
+              placeholder="Nome"
             />
-            <label class="form-label" for="form3Example1">Nome</label>
           </div>
         </div>
         <div class="col-md-4">
@@ -38,21 +37,42 @@
             <input
               formControlName="email"
               type="email"
-              id="form3Example2"
               class="form-control"
+              placeholder="E-mail"
             />
-            <label class="form-label" for="form3Example2">E-mail</label>
           </div>
         </div>
-        <div *ngIf="mode === 'incluir'" class="col-md-4">
+        <div class="col-md-4">
           <div class="form-outline">
             <input
               formControlName="senha"
-              type="text"
-              id="form3Example2"
+              type="password"
               class="form-control"
+              placeholder="Senha"
             />
-            <label class="form-label" for="form3Example2">Senha</label>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="mode === 'editar'" class="row mb-4">
+        <div class="col-md-5">
+          <div class="form-outline">
+            <input
+              formControlName="nome"
+              type="text"
+              class="form-control"
+              placeholder="Nome"
+            />
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-outline">
+            <input
+              formControlName="email"
+              type="email"
+              class="form-control"
+              placeholder="E-mail"
+            />
           </div>
         </div>
       </div>
@@ -67,7 +87,6 @@
               <div class="form-outline">
                 <input
                   type="text"
-                  id="form3Example1"
                   class="form-control"
                   value="Segunda-feira"
                   disabled
@@ -78,7 +97,6 @@
               <div class="form-outline">
                 <input
                   type="email"
-                  id="form3Example2"
                   class="form-control"
                   [(ngModel)]="escalaForm.segunda.horaInicio"
                   [disabled]="segunda"
@@ -94,7 +112,6 @@
                 <input
                   #teste
                   type="email"
-                  id="form3Example2"
                   class="form-control"
                   [(ngModel)]="escalaForm.segunda.horaFim"
                   [disabled]="segunda"
@@ -123,7 +140,6 @@
               <div class="form-outline">
                 <input
                   type="text"
-                  id="form3Example1"
                   class="form-control"
                   value="Terça-feira"
                   disabled
@@ -134,7 +150,6 @@
               <div class="form-outline">
                 <input
                   type="email"
-                  id="form3Example2"
                   class="form-control"
                   [(ngModel)]="escalaForm.terca.horaInicio"
                   [disabled]="terca"
@@ -150,7 +165,6 @@
                 <input
                   #teste
                   type="email"
-                  id="form3Example2"
                   class="form-control"
                   [(ngModel)]="escalaForm.terca.horaFim"
                   [disabled]="terca"
@@ -181,7 +195,6 @@
               <div class="form-outline">
                 <input
                   type="text"
-                  id="form3Example1"
                   class="form-control"
                   value="Quarta-feira"
                   disabled
@@ -192,7 +205,6 @@
               <div class="form-outline">
                 <input
                   type="email"
-                  id="form3Example2"
                   class="form-control"
                   [(ngModel)]="escalaForm.quarta.horaInicio"
                   [disabled]="quarta"
@@ -208,7 +220,6 @@
                 <input
                   #teste
                   type="email"
-                  id="form3Example2"
                   class="form-control"
                   [(ngModel)]="escalaForm.quarta.horaFim"
                   [disabled]="quarta"
@@ -237,7 +248,6 @@
               <div class="form-outline">
                 <input
                   type="text"
-                  id="form3Example1"
                   class="form-control"
                   value="Quinta-feira"
                   disabled
@@ -248,7 +258,6 @@
               <div class="form-outline">
                 <input
                   type="email"
-                  id="form3Example2"
                   class="form-control"
                   [(ngModel)]="escalaForm.quinta.horaInicio"
                   [disabled]="quinta"
@@ -264,7 +273,6 @@
                 <input
                   #teste
                   type="email"
-                  id="form3Example2"
                   class="form-control"
                   [(ngModel)]="escalaForm.quinta.horaFim"
                   [disabled]="quinta"
@@ -293,7 +301,6 @@
               <div class="form-outline">
                 <input
                   type="text"
-                  id="form3Example1"
                   class="form-control"
                   value="Sexta-feira"
                   disabled
@@ -304,7 +311,6 @@
               <div class="form-outline">
                 <input
                   type="email"
-                  id="form3Example2"
                   class="form-control"
                   [(ngModel)]="escalaForm.sexta.horaInicio"
                   [disabled]="sexta"
@@ -320,7 +326,6 @@
                 <input
                   #teste
                   type="email"
-                  id="form3Example2"
                   class="form-control"
                   [(ngModel)]="escalaForm.sexta.horaFim"
                   [disabled]="sexta"

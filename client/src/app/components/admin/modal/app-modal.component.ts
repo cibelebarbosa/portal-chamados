@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { ChamadosStatusEnum } from '../../shared/enums/chamados.enum';
 import { ChamadoInterface } from '../../shared/interfaces/chamados/chamado.interface';
+import { UtilsService } from '../../shared/services/utils.service';
 
 @Component({
   selector: 'app-modal',
@@ -16,7 +17,10 @@ export class ModalComponent implements OnInit {
   comentarioInvalido: boolean = false;
   comentario: string = '';
 
-  constructor(private repository: RepositoryService) {}
+  constructor(
+    private repository: RepositoryService,
+    private utilsService: UtilsService
+  ) {}
 
   ngOnInit() {}
 
@@ -37,9 +41,11 @@ export class ModalComponent implements OnInit {
       return;
     } else {
       this.chamadoAberto.comentario = this.comentario;
-      this.chamadoAberto.data_conclusao = moment().format(
-        'YYYY-MM-DD hh:mm:ss'
+      this.chamadoAberto.data_conclusao = moment(new Date()).format(
+        'YYYY-MM-DD H:mm:ss'
       );
+      console.log(this.chamadoAberto.data_conclusao);
+
       this.send();
     }
   }
@@ -53,6 +59,7 @@ export class ModalComponent implements OnInit {
     this.repository
       .updateStatus(this.chamadoAberto.id, this.chamadoAberto)
       .subscribe((resp) => {});
+    this.utilsService.setChamados(true);
     this.closePopup();
   }
 }

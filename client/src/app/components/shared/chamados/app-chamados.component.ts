@@ -80,7 +80,7 @@ export class ChamadosComponent implements OnInit {
     let chamadoDate = new Date(date);
     let diaAtual = new Date();
     return chamadoDate
-      ? diaAtual.getDate() - chamadoDate?.getDate() + ' dia(s) atrás.'
+      ?  chamadoDate?.getDate() - diaAtual.getDate() + ' dia(s) atrás.'
       : '';
   }
 }

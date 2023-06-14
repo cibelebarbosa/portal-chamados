@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 })
 export class UtilsService {
   coordenadores = new Subject<any>;
+  chamados = new Subject<any>;
 
   getCoordenadores(){
     return this.coordenadores.asObservable();
@@ -13,5 +14,13 @@ export class UtilsService {
 
   setCoordenadores(value: any){
     this.coordenadores.next(value);
+  }
+
+  getChamados(){
+    return this.chamados.asObservable();
+  }
+
+  setChamados(value: any){
+    this.chamados.next(value);
   }
 }

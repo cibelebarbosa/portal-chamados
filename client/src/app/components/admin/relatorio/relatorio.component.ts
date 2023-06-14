@@ -27,7 +27,6 @@ export class RelatorioComponent implements OnInit {
       this.coordenadoresList = res;
       this.coordenadoresDominio = res;
     });
-
     this.carregarChamados();
 
     this.utilsService.getCoordenadores().subscribe(() => {
@@ -57,16 +56,16 @@ export class RelatorioComponent implements OnInit {
           registro.getMonth() + 1
         }-${registro.getFullYear()} ${registro.getHours()}:${registro.getMinutes()}`,
         'DD/M/YYYY hh:mm'
-      ).format('DD/MM/YYYY hh:mm');
+      ).format('DD/MM/YYYY H:mm');
       let conclusaoFormatada = moment(
-        element.data_conclusao,
+        new Date(element.data_conclusao),
         'YYYY-MM-DD hh:mm:ss'
-      ).format('DD/MM/YYYY hh:mm');
+      ).format('DD/MM/YYYY H:mm');
 
       element.tempo_conclusao = moment(
-        registroFormatado,
+        new Date(element.data_conclusao),
         'DD/MM/YYYY hs:mm'
-      ).diff(moment(conclusaoFormatada, 'DD/MM/YYYY hs:mm'), 'hours');
+      ).diff(moment( registro, 'DD/MM/YYYY hs:mm'), 'minutes');
       element.data_registro = registroFormatado;
       element.data_conclusao = conclusaoFormatada;
 

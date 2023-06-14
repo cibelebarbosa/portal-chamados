@@ -124,6 +124,18 @@ export class FormComponent implements OnInit {
     this.coordenadorForm.reset();
   }
 
+  montarEmail(value: any) {
+    let email = `<h1>Coordenador cadastrado</h1>
+    <h2>${value.nome} seu cadastro foi criado no dia ${new Date().getDate()}/${
+      new Date().getMonth() + 1
+    }/${new Date().getFullYear()}.</h2>
+    <h3>Nome: ${value.nome}</h3>
+    <p>E-mail: ${value.email}</p>
+    <p>Senha: ${value.senha}</p>`;
+
+    return email;
+  }
+
   submit() {
     if (this.mode === 'incluir') {
       this.repository.saveCoordenador(this.montarObjeto()).subscribe((res) => {
@@ -133,6 +145,9 @@ export class FormComponent implements OnInit {
             id_coordenador: res.result.id,
           })
           .subscribe((res) => {});
+          this.repository
+          .enviarEmail(this.coordenadorForm.get('email')?.value, this.montarEmail(this.coordenadorForm.value))
+          .subscribe(() => {});
         this.utilsService.setCoordenadores(res);
         this.resetarForm();
         this.sucesso.msg = 'Coordenador incluido com sucesso!';

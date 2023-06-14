@@ -81,6 +81,7 @@ export class PerfilFormComponent implements OnInit {
         }, 3000);
         this.perfilForm.reset();
         this.perfilForm.get('coordenador')?.setValue('');
+        this.utilsService.setChamados(true);
       } else {
         this.sucesso = false;
         console.log(data.error);

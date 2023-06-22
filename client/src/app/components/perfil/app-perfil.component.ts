@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-perfil',
@@ -9,5 +10,11 @@ export class PerfilComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    moment.locale('pt-br');
+    let a = moment().format('LT');
+
+    console.log(a > '18:00' && a < '22:00');
+
+  }
 }

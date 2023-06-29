@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RepositoryService } from '../../utils/services/repository.service';
 import * as moment from 'moment';
 import { ChamadoInterface } from '../../utils/interfaces/chamados/chamado.interface';
 import { CoordenadorDominioInterface } from '../../utils/interfaces/dominios/coordenador-dominio.interface';
 import { UtilsService } from '../../utils/services/utils.service';
+import { CoordenadorRepositoryService } from '../../utils/repository/coordenador.repository.service';
+import { ChamadosRepositoryService } from '../../utils/repository/chamados.repository.service';
 
 @Component({
   selector: 'app-relatorio',
@@ -18,26 +19,27 @@ export class RelatorioComponent implements OnInit {
   coordenadorSelected: string = '';
 
   constructor(
-    private repository: RepositoryService,
+    private coordenadorRepository: CoordenadorRepositoryService,
+    private chamadosRepository: ChamadosRepositoryService,
     private utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {
-    this.repository.getAllCoordenadores().subscribe((res: Array<CoordenadorDominioInterface>) => {
+    this.coordenadorRepository.getAllCoordenadores().subscribe((res: Array<CoordenadorDominioInterface>) => {
       this.coordenadoresList = res;
       this.coordenadoresDominio = res;
     });
     this.carregarChamados();
 
     this.utilsService.getCoordenadores().subscribe(() => {
-      this.repository.getAllCoordenadores().subscribe((res: Array<CoordenadorDominioInterface>) => {
+      this.coordenadorRepository.getAllCoordenadores().subscribe((res: Array<CoordenadorDominioInterface>) => {
         this.coordenadoresDominio = res;
       });
     });
   }
 
   async carregarChamados() {
-    await this.repository.getAll().subscribe((res: any) => {
+    await this.chamadosRepository.getAllChamados().subscribe((res: any) => {
       this.chamadosList = res.result.filter((e: any) => e.status == 2);
       this.montarRelatorio();
     });
@@ -85,7 +87,7 @@ export class RelatorioComponent implements OnInit {
     this.relatorioList = [];
     this.carregarChamados();
     if (this.coordenadorSelected === '') return;
-    this.repository.getByIdCoordenadores(value).subscribe((res) => {
+    this.coordenadorRepository.getByIdCoordenadores(value).subscribe((res) => {
       this.relatorioList = this.relatorioList.filter(
         (e: any) => e.coordenador_nome == res.result.coordenador[0].nome
       );

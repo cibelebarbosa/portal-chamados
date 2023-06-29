@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RepositoryService } from '../../shared/services/repository.service';
-import { AutorizacaoAdminService } from '../../shared/services/autorizacao-admin.service';
-import { ErroInterface } from '../../shared/interfaces/mensagens/erro.interface';
+import { AutorizacaoAdminService } from '../../utils/services/autorizacao-admin.service';
+import { ErroInterface } from '../../utils/interfaces/mensagens/erro.interface';
+import { LoginRepositoryService } from '../../utils/repository/login.repository.service';
 
 @Component({
   selector: 'app-login-form',
@@ -18,7 +18,7 @@ export class LoginFormComponent implements OnInit {
   });
 
   constructor(
-    private repository: RepositoryService,
+    private loginRepository: LoginRepositoryService,
     private formBuilder: FormBuilder,
     private autorizacaoAdminService: AutorizacaoAdminService
   ) {}
@@ -36,12 +36,12 @@ export class LoginFormComponent implements OnInit {
   }
 
   submit() {
-    this.repository.login(this.loginForm.value).subscribe((res) => {
+    this.loginRepository.login(this.loginForm.value).subscribe((res) => {
       if (res.result.message.msg === 'Usuário não está cadastrado') {
         this.erro.msg = res.result.message.msg;
         this.erro.status = true;
       } else {
-        if (res.result.message.id === 34) {
+        if (res.result.message.id === 1) {
           this.autorizacaoAdminService.autorizarAdmin();
         } else {
           this.autorizacaoAdminService.autorizarCoordenador(

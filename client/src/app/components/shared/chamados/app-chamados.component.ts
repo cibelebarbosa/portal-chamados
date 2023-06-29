@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalComponent } from '../../admin/modal/app-modal.component';
-import { ChamadosStatusEnum } from '../enums/chamados.enum';
+import { ChamadosStatusEnum } from '../../utils/enums/chamados.enum';
 import { ChamadoInterface } from '../../utils/interfaces/chamados/chamado.interface';
-import { RepositoryService } from '../../utils/services/repository.service';
+import { ChamadosRepositoryService } from '../../utils/repository/chamados.repository.service';
 import { TranslationService } from '../../utils/services/translate.service';
 import { FiltroService } from '../../utils/services/filter.service';
 
@@ -17,7 +17,7 @@ export class ChamadosComponent implements OnInit {
   chamadosList: Array<ChamadoInterface> = [];
 
   constructor(
-    private repository: RepositoryService,
+    private chamadosRepository: ChamadosRepositoryService,
     public translate: TranslationService,
     private filtro: FiltroService
   ) {}
@@ -34,13 +34,13 @@ export class ChamadosComponent implements OnInit {
   }
 
   carregarLista() {
-    this.repository.getAll().subscribe((res: any) => {
+    this.chamadosRepository.getAllChamados().subscribe((res: any) => {
       this.chamadosList = res.result;
     });
   }
 
   carregarListaCoordenador(id: number) {
-    this.repository.getAllById(id).subscribe((res: any) => {
+    this.chamadosRepository.getAllByIdChamados(id).subscribe((res: any) => {
       this.chamadosList = res.result;
     });
   }
@@ -51,7 +51,7 @@ export class ChamadosComponent implements OnInit {
         this.carregarListaCoordenador(this.coordenadorId);
         return;
       }
-      this.repository.getAllByFilters(data).subscribe((data) => {
+      this.chamadosRepository.getAllByFiltersChamados(data).subscribe((data) => {
         this.chamadosList = data.result.filter(
           (e: any) => e.coordenador == this.coordenadorId
         );
@@ -61,7 +61,7 @@ export class ChamadosComponent implements OnInit {
         this.carregarLista();
         return;
       }
-      this.repository.getAllByFilters(data).subscribe((data) => {
+      this.chamadosRepository.getAllByFiltersChamados(data).subscribe((data) => {
         this.chamadosList = data.result;
       });
     }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RepositoryService } from '../utils/services/repository.service';
+import { ChamadosRepositoryService} from '../utils/repository/chamados.repository.service';
 import { TranslationService } from '../utils/services/translate.service';
 import { FiltroService } from '../utils/services/filter.service';
 import { ChamadoInterface } from '../utils/interfaces/chamados/chamado.interface';
@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   chamadosList: Array<ChamadoInterface> = [];
 
   constructor(
-    private repository: RepositoryService,
+    private chamadosRepository: ChamadosRepositoryService,
     public translate: TranslationService,
     private filtro: FiltroService,
     private utilsService: UtilsService
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
 
   carregarLista() {
     let chamadosAbertos: Array<ChamadoInterface> = [];
-    this.repository.getAll().subscribe((res) => {
+    this.chamadosRepository.getAllChamados().subscribe((res) => {
       res.result.forEach((e: any) => {
         if (e.status !== 2) chamadosAbertos.push(e);
       });

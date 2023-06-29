@@ -5,8 +5,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { RepositoryService } from '../../utils/services/repository.service';
 import { UtilsService } from '../../utils/services/utils.service';
+import { CoordenadorRepositoryService } from '../../utils/repository/coordenador.repository.service';
+import { ChamadosRepositoryService } from '../../utils/repository/chamados.repository.service';
 
 @Component({
   selector: 'app-perfil-form',
@@ -27,18 +28,19 @@ export class PerfilFormComponent implements OnInit {
     descricao: ['', [Validators.required]],
   });
   constructor(
-    private repository: RepositoryService,
+    private coordenadorRepository: CoordenadorRepositoryService,
+    private chamadosRepository: ChamadosRepositoryService,
     private formBuilder: FormBuilder,
     private utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {
-    this.repository.getAllCoordenadores().subscribe((res) => {
+    this.coordenadorRepository.getAllCoordenadores().subscribe((res) => {
       this.coordenadoresDominio = res;
     });
 
     this.utilsService.getCoordenadores().subscribe(() => {
-      this.repository.getAllCoordenadores().subscribe((res) => {
+      this.coordenadorRepository.getAllCoordenadores().subscribe((res) => {
         this.coordenadoresDominio = res;
       });
     });
@@ -70,7 +72,7 @@ export class PerfilFormComponent implements OnInit {
     formValues.coordenador = parseInt(formValues.coordenador);
     formValues.ra = parseInt(formValues.ra);
 
-    this.repository.save(formValues).subscribe((data) => {
+    this.chamadosRepository.saveChamados(formValues).subscribe((data) => {
       if (!data.error) {
         this.sucesso = true;
         setTimeout(() => {
@@ -84,7 +86,7 @@ export class PerfilFormComponent implements OnInit {
       }
 
       if (this.sucesso) {
-        this.repository
+        this.chamadosRepository
           .enviarEmail(formValues.email, this.montarEmail(formValues))
           .subscribe(() => {});
       }

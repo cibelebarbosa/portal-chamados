@@ -1,7 +1,7 @@
-import { RepositoryService } from '../../utils/services/repository.service';
+import { ChamadosRepositoryService } from '../../utils/repository/chamados.repository.service';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { ChamadosStatusEnum } from '../../shared/enums/chamados.enum';
+import { ChamadosStatusEnum } from '../../utils/enums/chamados.enum';
 import { ChamadoInterface } from '../../utils/interfaces/chamados/chamado.interface';
 import { UtilsService } from '../../utils/services/utils.service';
 
@@ -18,7 +18,7 @@ export class ModalComponent implements OnInit {
   comentario: string = '';
 
   constructor(
-    private repository: RepositoryService,
+    private chamadosRepository: ChamadosRepositoryService,
     private utilsService: UtilsService
   ) {}
 
@@ -54,8 +54,8 @@ export class ModalComponent implements OnInit {
     if (this.popUp === ChamadosStatusEnum.CONCLUIDO)
       this.chamadoAberto.status = ChamadosStatusEnum.CONCLUIDO;
 
-    this.repository
-      .updateStatus(this.chamadoAberto.id, this.chamadoAberto)
+    this.chamadosRepository
+      .updateStatusChamados(this.chamadoAberto.id, this.chamadoAberto)
       .subscribe((resp) => {});
     this.utilsService.setChamados(true);
     this.closePopup();

@@ -5,6 +5,7 @@ import { NavbarModule } from '../navbar/app-navbar.module';
 import { ChamadosComponent } from './app-chamados.component';
 import { ModalModule } from '../../admin/modal/app-modal.module';
 import { HttpClientModule } from '@angular/common/http';
+import { PageNotFoundModule } from '../page-not-found/page-not-found.module';
 
 @NgModule({
   declarations: [ChamadosComponent],
@@ -15,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
     ModalModule,
     DatePipe,
     HttpClientModule,
+    PageNotFoundModule
   ],
   providers: [],
   bootstrap: [ChamadosComponent],

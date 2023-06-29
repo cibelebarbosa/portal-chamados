@@ -25,8 +25,8 @@ module.exports = {
 
     if (coordenador && escalas) {
       let returnObj = {
-        coordenador,
-        escalas: escalas,
+        coordenador: coordenador[0],
+        escalas,
       };
       json.result = returnObj;
     }
@@ -37,26 +37,22 @@ module.exports = {
   save: async (req, res) => {
     let json = { error: "", result: {} };
 
-    let nome = req.body.nome;
-    let email = req.body.email;
-    let escala = req.body.escala.filter((n) => n);
+    let coordenador = req.body.coordenador;
+    let escala = req.body.escalas;
 
-    if (nome !== undefined && email !== undefined && escala !== undefined) {
-      let coordenador = await CoordenadorService.saveCoordenador(
-        nome,
-        email,
-        escala
-      );
-      let escalas = await CoordenadorService.saveEscala(coordenador, escala);
-      json.result = {
-        id: coordenador,
-        nome,
-        email,
-        escala,
-      };
-    } else {
-      json.error = "Campos inválidos";
-    }
+    let coordenadorId = await CoordenadorService.saveCoordenador(
+      coordenador.nome,
+      coordenador.email,
+      escala
+    );
+
+    let escalas = await CoordenadorService.saveEscala(coordenadorId, escala);
+
+    json.result = {
+      id: coordenadorId,
+      coordenador,
+      escala,
+    };
 
     res.json(json);
   },

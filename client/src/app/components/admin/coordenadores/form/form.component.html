@@ -20,36 +20,22 @@
   </section>
 
   <section *ngIf="mode === 'incluir' || edicao === true">
+    <!-- prettier-ignore -->
     <form [formGroup]="coordenadorForm">
       <div *ngIf="mode === 'incluir'" class="row mb-4">
         <div class="col-md-4">
           <div class="form-outline">
-            <input
-              formControlName="nome"
-              type="text"
-              class="form-control"
-              placeholder="Nome"
-            />
+            <input formControlName="nome" type="text" class="form-control" placeholder="Nome" />
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-outline">
-            <input
-              formControlName="email"
-              type="email"
-              class="form-control"
-              placeholder="E-mail"
-            />
+            <input formControlName="email" type="email" class="form-control" placeholder="E-mail" />
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-outline">
-            <input
-              formControlName="senha"
-              type="password"
-              class="form-control"
-              placeholder="Senha"
-            />
+            <input formControlName="senha" type="password" class="form-control" placeholder="Senha" />
           </div>
         </div>
       </div>
@@ -57,298 +43,57 @@
       <div *ngIf="mode === 'editar'" class="row mb-4">
         <div class="col-md-5">
           <div class="form-outline">
-            <input
-              formControlName="nome"
-              type="text"
-              class="form-control"
-              placeholder="Nome"
-            />
+            <input formControlName="nome" type="text" class="form-control" placeholder="Nome" />
           </div>
         </div>
         <div class="col-md-7">
           <div class="form-outline">
-            <input
-              formControlName="email"
-              type="email"
-              class="form-control"
-              placeholder="E-mail"
-            />
+            <input formControlName="email" type="email" class="form-control" placeholder="E-mail" />
           </div>
         </div>
       </div>
     </form>
-    <!-- <mat-divider></mat-divider> -->
+
     <div class="card shadow-sm p-3 mb-5 bg-white rounded mt-5 col-md-12">
       <div class="card-header d-flex justify-content-center">Horários</div>
       <div class="card-body px-5 py-5">
-        <form>
-          <div class="row mb-4">
-            <div class="col-md-4">
-              <div class="form-outline">
-                <input
-                  type="text"
-                  class="form-control"
-                  value="Segunda-feira"
-                  disabled
-                />
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-outline">
-                <input
-                  type="email"
-                  class="form-control"
-                  [(ngModel)]="escalaForm.segunda.horaInicio"
-                  [disabled]="segunda"
-                  name="segHorarioInicial"
-                />
-                <label class="form-label" for="form3Example2"
-                  >Horário inicial</label
-                >
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-outline">
-                <input
-                  #teste
-                  type="email"
-                  class="form-control"
-                  [(ngModel)]="escalaForm.segunda.horaFim"
-                  [disabled]="segunda"
-                  name="segHorarioFim"
-                />
-                <label class="form-label" for="form3Example2"
-                  >Horário final</label
-                >
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-outline">
-                <mat-icon
-                  class="add_icon mt-2"
-                  aria-hidden="false"
-                  aria-label="Example home icon"
-                  fontIcon="add_circle_outline"
-                  (click)="segunda = !segunda"
-                ></mat-icon>
-              </div>
-            </div>
-          </div>
-
-          <div class="row mb-4">
-            <div class="col-md-4">
-              <div class="form-outline">
-                <input
-                  type="text"
-                  class="form-control"
-                  value="Terça-feira"
-                  disabled
-                />
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-outline">
-                <input
-                  type="email"
-                  class="form-control"
-                  [(ngModel)]="escalaForm.terca.horaInicio"
-                  [disabled]="terca"
-                  name="terHorarioInicial"
-                />
-                <label class="form-label" for="form3Example2"
-                  >Horário inicial</label
-                >
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-outline">
-                <input
-                  #teste
-                  type="email"
-                  class="form-control"
-                  [(ngModel)]="escalaForm.terca.horaFim"
-                  [disabled]="terca"
-                  name="terHorarioFim"
-                />
-                <label class="form-label" for="form3Example2"
-                  >Horário final</label
-                >
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="col-md-2">
+        <!-- prettier-ignore -->
+        <section *ngFor="let escalaForm of formEscala.controls; let index = index">
+          <form [formGroup]="$any(escalaForm)">
+            <div class="row mb-4">
+              <div class="col-md-4">
                 <div class="form-outline">
+
+                  <select class="form-select" formControlName="dia">
+                    <option value="0" selected>Selecione um dia</option>
+                    <option *ngFor="let dia of diasDominio" [value]="dia.id">{{ dia.dia }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-outline">
+                  <input type="email" class="form-control" formControlName="horaInicio" placeholder="Horário inicial"/>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-outline">
+                  <input type="email" class="form-control" formControlName="horaFim" placeholder="Horário final"/>
+                </div>
+              </div>
+              <div *ngIf="mode === 'incluir'" class="col-md-2">
+                <div class="form-outline mt-2">
+                  <mat-icon *ngIf="index !== 0" class="add_icon" fontIcon="remove_circle_outline" (click)="removeEscala(index)"></mat-icon>
                   <mat-icon
-                    class="add_icon mt-2"
-                    aria-hidden="false"
-                    aria-label="Example home icon"
+                    *ngIf="index === formEscala.controls.length - 1 && formEscala.controls.length <= 5"
+                    class="add_icon"
                     fontIcon="add_circle_outline"
-                    (click)="terca = !terca"
+                    (click)="addEscala()"
                   ></mat-icon>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="row mb-4">
-            <div class="col-md-4">
-              <div class="form-outline">
-                <input
-                  type="text"
-                  class="form-control"
-                  value="Quarta-feira"
-                  disabled
-                />
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-outline">
-                <input
-                  type="email"
-                  class="form-control"
-                  [(ngModel)]="escalaForm.quarta.horaInicio"
-                  [disabled]="quarta"
-                  name="quaHorarioInicial"
-                />
-                <label class="form-label" for="form3Example2"
-                  >Horário inicial</label
-                >
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-outline">
-                <input
-                  #teste
-                  type="email"
-                  class="form-control"
-                  [(ngModel)]="escalaForm.quarta.horaFim"
-                  [disabled]="quarta"
-                  name="quaHorarioFim"
-                />
-                <label class="form-label" for="form3Example2"
-                  >Horário final</label
-                >
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-outline">
-                <mat-icon
-                  class="add_icon mt-2"
-                  aria-hidden="false"
-                  aria-label="Example home icon"
-                  fontIcon="add_circle_outline"
-                  (click)="quarta = !quarta"
-                ></mat-icon>
-              </div>
-            </div>
-          </div>
-
-          <div class="row mb-4">
-            <div class="col-md-4">
-              <div class="form-outline">
-                <input
-                  type="text"
-                  class="form-control"
-                  value="Quinta-feira"
-                  disabled
-                />
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-outline">
-                <input
-                  type="email"
-                  class="form-control"
-                  [(ngModel)]="escalaForm.quinta.horaInicio"
-                  [disabled]="quinta"
-                  name="quiHorarioInicial"
-                />
-                <label class="form-label" for="form3Example2"
-                  >Horário inicial</label
-                >
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-outline">
-                <input
-                  #teste
-                  type="email"
-                  class="form-control"
-                  [(ngModel)]="escalaForm.quinta.horaFim"
-                  [disabled]="quinta"
-                  name="quiHorarioFim"
-                />
-                <label class="form-label" for="form3Example2"
-                  >Horário final</label
-                >
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-outline">
-                <mat-icon
-                  class="add_icon mt-2"
-                  aria-hidden="false"
-                  aria-label="Example home icon"
-                  fontIcon="add_circle_outline"
-                  (click)="quinta = !quinta"
-                ></mat-icon>
-              </div>
-            </div>
-          </div>
-
-          <div class="row mb-4">
-            <div class="col-md-4">
-              <div class="form-outline">
-                <input
-                  type="text"
-                  class="form-control"
-                  value="Sexta-feira"
-                  disabled
-                />
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-outline">
-                <input
-                  type="email"
-                  class="form-control"
-                  [(ngModel)]="escalaForm.sexta.horaInicio"
-                  [disabled]="sexta"
-                  name="sexHorarioInicial"
-                />
-                <label class="form-label" for="form3Example2"
-                  >Horário inicial</label
-                >
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-outline">
-                <input
-                  #teste
-                  type="email"
-                  class="form-control"
-                  [(ngModel)]="escalaForm.sexta.horaFim"
-                  [disabled]="sexta"
-                  name="sexHorarioFim"
-                />
-                <label class="form-label" for="form3Example2"
-                  >Horário final</label
-                >
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-outline">
-                <mat-icon
-                  class="add_icon mt-2"
-                  aria-hidden="false"
-                  aria-label="Example home icon"
-                  fontIcon="add_circle_outline"
-                  (click)="sexta = !sexta"
-                ></mat-icon>
-              </div>
-            </div>
-          </div>
-        </form>
+          </form>
+        </section>
 
         <div class="d-flex justify-content-around">
           <button
@@ -357,23 +102,15 @@
             class="btn btn-danger col-md-5"
             (click)="delete()"
           >
-            Remover
+            Deletar
           </button>
           <button
-            *ngIf="mode === 'incluir'"
             type="button"
             class="btn btn-primary col-md-5"
-            (click)="submit()"
+            (click)="mode === 'incluir' ? submitInclude() : submitEdit()"
+            [disabled]="mode === 'editar'"
           >
-            Cadastrar
-          </button>
-          <button
-            *ngIf="mode === 'editar'"
-            type="button"
-            class="btn btn-primary col-md-5"
-            (click)="submit()"
-          >
-            Salvar
+            {{ mode === "incluir" ? "Cadastrar" : "Salvar" }}
           </button>
         </div>
       </div>

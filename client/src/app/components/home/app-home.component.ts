@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RepositoryService } from '../shared/services/repository.service';
-import { TranslationService } from '../shared/services/translate.service';
-import { FiltroService } from '../shared/services/filter.service';
-import { ChamadoInterface } from '../shared/interfaces/chamados/chamado.interface';
-import { UtilsService } from '../shared/services/utils.service';
+import { RepositoryService } from '../utils/services/repository.service';
+import { TranslationService } from '../utils/services/translate.service';
+import { FiltroService } from '../utils/services/filter.service';
+import { ChamadoInterface } from '../utils/interfaces/chamados/chamado.interface';
+import { UtilsService } from '../utils/services/utils.service';
 
 @Component({
   selector: 'app-home',

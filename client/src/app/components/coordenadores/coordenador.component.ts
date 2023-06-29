@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FiltroService } from '../shared/services/filter.service';
+import { FiltroService } from '../utils/services/filter.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

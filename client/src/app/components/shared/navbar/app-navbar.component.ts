@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { AutorizacaoAdminService } from '../services/autorizacao-admin.service';
+import { AutorizacaoAdminService } from '../../utils/services/autorizacao-admin.service';
 
 @Component({
   selector: 'app-navbar',

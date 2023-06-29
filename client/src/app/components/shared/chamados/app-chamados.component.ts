@@ -1,10 +1,10 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalComponent } from '../../admin/modal/app-modal.component';
-import { RepositoryService } from '../services/repository.service';
-import { TranslationService } from '../services/translate.service';
-import { FiltroService } from '../services/filter.service';
 import { ChamadosStatusEnum } from '../enums/chamados.enum';
-import { ChamadoInterface } from '../interfaces/chamados/chamado.interface';
+import { ChamadoInterface } from '../../utils/interfaces/chamados/chamado.interface';
+import { RepositoryService } from '../../utils/services/repository.service';
+import { TranslationService } from '../../utils/services/translate.service';
+import { FiltroService } from '../../utils/services/filter.service';
 
 @Component({
   selector: 'app-chamados',

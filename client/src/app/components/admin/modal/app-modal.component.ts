@@ -1,9 +1,9 @@
-import { RepositoryService } from '../../shared/services/repository.service';
+import { RepositoryService } from '../../utils/services/repository.service';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { ChamadosStatusEnum } from '../../shared/enums/chamados.enum';
-import { ChamadoInterface } from '../../shared/interfaces/chamados/chamado.interface';
-import { UtilsService } from '../../shared/services/utils.service';
+import { ChamadoInterface } from '../../utils/interfaces/chamados/chamado.interface';
+import { UtilsService } from '../../utils/services/utils.service';
 
 @Component({
   selector: 'app-modal',

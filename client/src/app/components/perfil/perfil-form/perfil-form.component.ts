@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { RepositoryService } from '../../shared/services/repository.service';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { UtilsService } from '../../shared/services/utils.service';
+import { RepositoryService } from '../../utils/services/repository.service';
+import { UtilsService } from '../../utils/services/utils.service';
 
 @Component({
   selector: 'app-perfil-form',

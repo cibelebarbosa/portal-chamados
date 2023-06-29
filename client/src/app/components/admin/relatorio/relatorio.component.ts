@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RepositoryService } from '../../shared/services/repository.service';
+import { RepositoryService } from '../../utils/services/repository.service';
 import * as moment from 'moment';
-import { ChamadoInterface } from '../../shared/interfaces/chamados/chamado.interface';
-import { CoordenadorDominioInterface } from '../../shared/interfaces/dominios/coordenador-dominio.interface';
-import { UtilsService } from '../../shared/services/utils.service';
+import { ChamadoInterface } from '../../utils/interfaces/chamados/chamado.interface';
+import { CoordenadorDominioInterface } from '../../utils/interfaces/dominios/coordenador-dominio.interface';
+import { UtilsService } from '../../utils/services/utils.service';
 
 @Component({
   selector: 'app-relatorio',

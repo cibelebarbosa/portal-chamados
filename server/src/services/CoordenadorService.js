@@ -89,6 +89,33 @@ module.exports = {
     });
   },
 
+  getAllCoordenadoresEscalasByDia: (dia) => {
+    return new Promise((resolve, reject) => {
+      db.query("SELECT id, nome, id_coordenador, dia, horaInicio, horaFim FROM coordenadores INNER JOIN escalas ON id_coordenador = id where dia = ?",
+      [dia], 
+      (error, results) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve(results);
+      });
+    });
+  },
+
+  getAllCoordenadoresEscalas: () => {
+    return new Promise((resolve, reject) => {
+      db.query("SELECT id, nome, id_coordenador, dia, horaInicio, horaFim FROM coordenadores INNER JOIN escalas ON id_coordenador = id",
+      (error, results) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve(results);
+      });
+    });
+  },
+
   updateEscalas: (id, escala) => {
     return new Promise((resolve, reject) => {
       escala.forEach((e) => {

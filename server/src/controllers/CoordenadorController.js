@@ -4,14 +4,43 @@ const LoginService = require("../services/LoginService");
 module.exports = {
   getAllCoordenadores: async (req, res) => {
     let json = { error: "", result: [] };
+    let query = req.query;
     let coordenadores = await CoordenadorService.getAllCoordenadores();
 
-    for (let i in coordenadores) {
-      json.result.push({
-        id: coordenadores[i].id,
-        nome: coordenadores[i].nome,
-        email: coordenadores[i].email,
-      });
+    if (query.dia && query.dia != "null") {
+      let coordenadoresEscalas =
+        await CoordenadorService.getAllCoordenadoresEscalasByDia(query.dia);
+      for (let i in coordenadoresEscalas) {
+        json.result.push({
+          id: coordenadoresEscalas[i].id,
+          nome: coordenadoresEscalas[i].nome,
+          id_coordenador: coordenadoresEscalas[i].id_coordenador,
+          dia: coordenadoresEscalas[i].dia,
+          horaInicio: coordenadoresEscalas[i].horaInicio,
+          horaFim: coordenadoresEscalas[i].horaFim,
+        });
+      }
+    } else if (query.dia && query.dia == "null") {
+      let coordenadoresEscalas =
+        await CoordenadorService.getAllCoordenadoresEscalas();
+      for (let i in coordenadoresEscalas) {
+        json.result.push({
+          id: coordenadoresEscalas[i].id,
+          nome: coordenadoresEscalas[i].nome,
+          id_coordenador: coordenadoresEscalas[i].id_coordenador,
+          dia: coordenadoresEscalas[i].dia,
+          horaInicio: coordenadoresEscalas[i].horaInicio,
+          horaFim: coordenadoresEscalas[i].horaFim,
+        });
+      }
+    } else {
+      for (let i in coordenadores) {
+        json.result.push({
+          id: coordenadores[i].id,
+          nome: coordenadores[i].nome,
+          email: coordenadores[i].email,
+        });
+      }
     }
     res.json(json.result);
   },

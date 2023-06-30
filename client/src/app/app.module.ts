@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { SidenavModule } from './components/shared/sidenav/sidenav.module';
 import { CoordenadorModule } from './components/coordenadores/coordenador.module';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +29,8 @@ import { CoordenadorModule } from './components/coordenadores/coordenador.module
     BrowserAnimationsModule,
     MaterialModule,
     SidenavModule,
-    CoordenadorModule
+    CoordenadorModule,
+    NgxMaskModule.forRoot({ dropSpecialCharacters: false }),
   ],
   providers: [],
   bootstrap: [AppComponent],

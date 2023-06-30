@@ -4,78 +4,33 @@
 <div class="card shadow-sm p-3 mb-5 bg-white rounded">
   <div class="card-body">
     <h5 class="card-title">Precisa de ajuda? Fale conosco</h5>
+    <!-- prettier-ignore -->
     <form [formGroup]="perfilForm">
       <div class="form-outline mb-4">
-        <input
-          formControlName="aluno"
-          type="text"
-          id="form4Example1"
-          class="form-control"
-          placeholder="Nome"
-        />
+        <input formControlName="aluno" type="text" class="form-control" placeholder="Nome" />
       </div>
       <div class="form-outline mb-4">
-        <input
-          formControlName="ra"
-          type="text"
-          id="form4Example1"
-          class="form-control"
-          placeholder="RA"
-        />
+        <input formControlName="ra" type="text" class="form-control" placeholder="RA" mask="9999999999" />
       </div>
       <div class="form-outline mb-4">
-        <input
-          formControlName="telefone"
-          type="text"
-          id="form4Example2"
-          class="form-control"
-          placeholder="Telefone"
-          mask="(00) 00000-0000"
-        />
+        <input formControlName="telefone" type="text" class="form-control" placeholder="Telefone" mask="(00) 0000-0000 || (00) 0 0000-0000" />
       </div>
-
       <div class="form-outline mb-4">
-        <input
-          formControlName="email"
-          type="email"
-          id="form4Example2"
-          class="form-control"
-          placeholder="Email"
-        />
+        <input formControlName="email" type="email" class="form-control" placeholder="Email" />
       </div>
-
       <div class="form-outline mb-4">
-        <select
-          formControlName="coordenador"
-          class="form-select"
-          id="exampleFormControlSelect1"
-          aria-label="Default select example"
-        >
+        <select formControlName="coordenador" class="form-select" aria-label="Default select example">
           <option value="" selected>Selecione o coordenador</option>
-          <option *ngFor="let item of coordenadoresDominio" [value]="item.id">
+          <option *ngFor="let item of coordenadores" [value]="item.id">
             {{ item.nome }}
           </option>
         </select>
       </div>
-
-
       <div class="form-outline mb-4">
-        <input
-          formControlName="titulo"
-          type="text"
-          id="form4Example2"
-          class="form-control"
-          placeholder="Título"
-        />
+        <input formControlName="titulo" type="text" class="form-control" placeholder="Título" />
       </div>
       <div class="form-outline mb-4">
-        <textarea
-          formControlName="descricao"
-          class="form-control"
-          id="form4Example3"
-          rows="4"
-          placeholder="Descreva seu problema..."
-        ></textarea>
+        <textarea formControlName="descricao" class="form-control" rows="4" placeholder="Descreva seu problema..."></textarea>
       </div>
       <div *ngIf="msgError" class="alert alert-danger" role="alert">
         {{ msgError }}
@@ -84,6 +39,7 @@
         type="submit"
         class="btn btn-block mb-4 btn_default"
         (click)="submit()"
+        [disabled]="perfilForm.invalid"
       >
         Enviar
       </button>

@@ -72,12 +72,12 @@
               </div>
               <div class="col-md-3">
                 <div class="form-outline">
-                  <input type="email" class="form-control" formControlName="horaInicio" placeholder="Horário inicial"/>
+                  <input type="email" class="form-control" formControlName="horaInicio" placeholder="Horário inicial" mask="00:00" />
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-outline">
-                  <input type="email" class="form-control" formControlName="horaFim" placeholder="Horário final"/>
+                  <input type="email" class="form-control" formControlName="horaFim" placeholder="Horário final" mask="00:00"/>
                 </div>
               </div>
               <div *ngIf="mode === 'incluir'" class="col-md-2">

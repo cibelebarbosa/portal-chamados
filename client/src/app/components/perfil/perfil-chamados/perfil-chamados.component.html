@@ -1,15 +1,20 @@
-<div class="card text-center">
-  <div class="card-header">
+<div class="card">
+  <div class="card-header align-self-center bg-white border-primary">
     Informações
   </div>
   <div class="card-body">
     <h5 class="card-title">Fique ligado!</h5>
-    <p class="card-text">Verifique o horário de atendimento do seu coordenador antes de abrir seu chamado!</p>
+    <p class="card-text">Verifique abaixo os coordenadores atendendo hoje!</p>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let coordenador of coordenadores">
+        Nome: {{coordenador.nome}}, das {{coordenador.horaInicio}} as {{coordenador.horaFim}}.
+      </li>
+    </ul>
     <br>
-    <p class="card-text">Após preencher todos os campos sua solicitação entrará na fila e será atendida o mais rápido possível</p>
+    <p class="card-text">Seu coordenador só estará disponível para abertura de chamados dentro do horário de atendimento do mesmo, verifique a informação acima. </p>
 
   </div>
-  <div class="card-footer text-muted">
+  <div class="card-footer text-muted align-self-center bg-white border-primary">
     Anhanguera Educacional
   </div>
 </div>

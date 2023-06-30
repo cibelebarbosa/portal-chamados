@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  @Input() lista: any[] = [];
+  @Input() mostrar: boolean = false;
   @Input() mensagem: string = 'OOPS...não encontramos nada.';
 
   constructor() { }

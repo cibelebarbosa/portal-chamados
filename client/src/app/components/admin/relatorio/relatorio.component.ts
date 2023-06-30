@@ -17,6 +17,7 @@ export class RelatorioComponent implements OnInit {
   relatorioList: Array<ChamadoInterface> = [];
   coordenadoresDominio: Array<CoordenadorDominioInterface> = [];
   coordenadorSelected: string = '';
+  notFound: boolean = false;
 
   constructor(
     private coordenadorRepository: CoordenadorRepositoryService,
@@ -68,6 +69,8 @@ export class RelatorioComponent implements OnInit {
 
     });
     this.relatorioList = listaReports;
+
+    return listaReports.length === 0 ? this.notFound = true : this.notFound = false;
   }
 
   removerFiltros() {

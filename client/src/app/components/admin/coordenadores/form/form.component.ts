@@ -68,8 +68,6 @@ export class FormComponent implements OnInit {
     this.resetarForm();
     this.coordenadorRepository.getByIdCoordenadores(value).subscribe((res) => {
       this.editingItem = res.result;
-      console.log(res.result);
-
       this.coordenadorForm.patchValue(res.result.coordenador);
       res.result.escalas.map(
         (element: Array<EscalasDominioInterface>, index: number) => {
@@ -85,7 +83,6 @@ export class FormComponent implements OnInit {
   disableInputs() {
     this.formEscala.controls.forEach((form) => {
       form.disable();
-      console.log(form);
     });
   }
 

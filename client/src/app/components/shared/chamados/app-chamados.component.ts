@@ -71,7 +71,6 @@ export class ChamadosComponent implements OnInit {
         this.chamadosList.length === 0 ? this.notFound = true : this.notFound = false;
       });
     }
-    console.log(this.chamadosList);
   }
 
   concluir(id: number, item: any) {

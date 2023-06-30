@@ -26,8 +26,6 @@ export class CoordenadorRepositoryService {
   }
 
   getAllCoordenadoresByFilters(dia: string): Observable<any> {
-    console.log(`${this.apiUrl}/coordenadores?dia=${dia}`);
-
     return this.http.get(`${this.apiUrl}/coordenadores?dia=${dia}`);
   }
 

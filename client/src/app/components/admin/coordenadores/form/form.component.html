@@ -54,8 +54,8 @@
       </div>
     </form>
 
-    <div class="card shadow-sm p-3 mb-5 bg-white rounded mt-5 col-md-12">
-      <div class="card-header d-flex justify-content-center">Horários</div>
+    <div class="card shadow-sm p-3 mb-5 bg-white rounded mt-5 col-md-12 border-primary">
+      <div class="card-header d-flex justify-content-center bg-white border-primary">Horários</div>
       <div class="card-body px-5 py-5">
         <!-- prettier-ignore -->
         <section *ngFor="let escalaForm of formEscala.controls; let index = index">
@@ -95,18 +95,19 @@
           </form>
         </section>
 
-        <div class="d-flex justify-content-around">
+        <div class="d-flex justify-content-center">
           <button
             *ngIf="mode === 'editar'"
             type="button"
-            class="btn btn-danger col-md-5"
+            class="btn btn-danger col-md-2"
             (click)="delete()"
           >
             Deletar
           </button>
           <button
+            [ngClass]="mode === 'editar' ? 'button_margin' : ''"
             type="button"
-            class="btn btn-primary col-md-5"
+            class="btn btn-primary col-md-2"
             (click)="mode === 'incluir' ? submitInclude() : submitEdit()"
             [disabled]="mode === 'editar'"
           >

@@ -4,9 +4,9 @@
   <div class="row justify-content-around col-md-12">
     <div
       *ngFor="let item of chamadosList"
-      class="card text-center col-md-3 mt-3"
+      class="card text-center col-md-3 mt-3 border-primary"
     >
-      <div class="card-header">{{ item.titulo }}</div>
+      <div class="card-header bg-white border-primary">{{ item.titulo }}</div>
       <div class="card-body">
         <h5 class="card-title">
           {{ translate.statusTranlation(item.status) }}
@@ -43,11 +43,14 @@
           </button>
         </div>
       </div>
-      <div class="card-footer text-muted">
+      <div class="card-footer text-muted bg-white border-primary">
         {{ espera(item.data_registro) }}
       </div>
     </div>
   </div>
 </div>
 
-<app-page-not-found [mostrar]="notFound" mensagem="Nenhum chamado encontrado."></app-page-not-found>
+<app-page-not-found
+  [mostrar]="notFound"
+  mensagem="Nenhum chamado encontrado."
+></app-page-not-found>

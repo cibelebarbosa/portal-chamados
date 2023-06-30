@@ -33,10 +33,7 @@ export class FormComponent implements OnInit {
     }),
   ]);
   editingItem!: CoordenadorRequestInterface;
-  diasDominio = [
-    { dia: 'Segunda-Feira', id: 1 },
-    { dia: 'Terça-Feira', id: 2 },
-  ];
+  diasDominio: any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,6 +46,10 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.coordenadorRepository.getAllCoordenadores().subscribe((res) => {
       this.coordenadoresDominio = res;
+    });
+
+    this.coordenadorRepository.getAllDiasDominio().subscribe((res) => {
+      this.diasDominio = res;
     });
 
     this.utilsService.getCoordenadores().subscribe(() => {
@@ -67,6 +68,8 @@ export class FormComponent implements OnInit {
     this.resetarForm();
     this.coordenadorRepository.getByIdCoordenadores(value).subscribe((res) => {
       this.editingItem = res.result;
+      console.log(res.result);
+
       this.coordenadorForm.patchValue(res.result.coordenador);
       res.result.escalas.map(
         (element: Array<EscalasDominioInterface>, index: number) => {

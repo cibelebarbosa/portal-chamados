@@ -66,7 +66,7 @@
 
                   <select class="form-select" formControlName="dia">
                     <option value="0" selected>Selecione um dia</option>
-                    <option *ngFor="let dia of diasDominio" [value]="dia.id">{{ dia.dia }}</option>
+                    <option *ngFor="let item of diasDominio" [value]="item.dia">{{ item.dia }}</option>
                   </select>
                 </div>
               </div>

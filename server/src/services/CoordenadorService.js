@@ -89,6 +89,18 @@ module.exports = {
     });
   },
 
+  getAllDiasDominio: () => {
+    return new Promise((resolve, reject) => {
+      db.query("SELECT * FROM diaSemana", (error, results) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve(results);
+      });
+    });
+  },
+
   getAllCoordenadoresEscalasByDia: (dia) => {
     return new Promise((resolve, reject) => {
       db.query("SELECT id, nome, id_coordenador, dia, horaInicio, horaFim FROM coordenadores INNER JOIN escalas ON id_coordenador = id where dia = ?",

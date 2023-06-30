@@ -45,6 +45,19 @@ module.exports = {
     res.json(json.result);
   },
 
+  getAllDiasDominio: async (req, res) => {
+    let json = { error: "", result: [] };
+    let dias = await CoordenadorService.getAllDiasDominio();
+
+    for (let i in dias) {
+      json.result.push({
+        id: dias[i].id,
+        dia: dias[i].dia,
+      });
+    }
+    res.json(json.result);
+  },
+
   getById: async (req, res) => {
     let json = { error: "", result: {} };
 

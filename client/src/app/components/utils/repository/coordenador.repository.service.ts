@@ -21,6 +21,12 @@ export class CoordenadorRepositoryService {
     return this.http.get(`${this.apiUrl}/coordenadores`);
   }
 
+  getAllCoordenadoresByFilters(dia: string): Observable<any> {
+    console.log(`${this.apiUrl}/coordenadores?dia=${dia}`);
+
+    return this.http.get(`${this.apiUrl}/coordenadores?dia=${dia}`);
+  }
+
   getByIdCoordenadores(id: any): Observable<any> {
     return this.http.get(`${this.apiUrl}/coordenadores/${id}`);
   }

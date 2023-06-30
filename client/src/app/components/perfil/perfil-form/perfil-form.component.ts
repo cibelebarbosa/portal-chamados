@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -8,6 +8,7 @@ import {
 import { UtilsService } from '../../utils/services/utils.service';
 import { CoordenadorRepositoryService } from '../../utils/repository/coordenador.repository.service';
 import { ChamadosRepositoryService } from '../../utils/repository/chamados.repository.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-perfil-form',
@@ -17,7 +18,7 @@ import { ChamadosRepositoryService } from '../../utils/repository/chamados.repos
 export class PerfilFormComponent implements OnInit {
   msgError = '';
   sucesso: boolean = false;
-  coordenadoresDominio: any = [];
+  @Input() coordenadores: any = [];
   perfilForm: FormGroup = this.formBuilder.group({
     aluno: ['', [Validators.required]],
     ra: ['', [Validators.required]],
@@ -35,16 +36,10 @@ export class PerfilFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.coordenadorRepository.getAllCoordenadores().subscribe((res) => {
-      this.coordenadoresDominio = res;
-    });
 
-    this.utilsService.getCoordenadores().subscribe(() => {
-      this.coordenadorRepository.getAllCoordenadores().subscribe((res) => {
-        this.coordenadoresDominio = res;
-      });
-    });
   }
+
+
 
   montarEmail(value: any) {
     let email = `<h1>Chamado aberto com sucesso</h1>
@@ -54,7 +49,7 @@ export class PerfilFormComponent implements OnInit {
     <h3>Chamado: ${value.titulo}</h3>
     <p>Descrição: ${value.descricao}</p>
     <p>Coordenador: ${
-      this.coordenadoresDominio.filter(
+      this.coordenadores.filter(
         (e: any) => e.id === value.coordenador
       )[0].nome
     }</p>`;

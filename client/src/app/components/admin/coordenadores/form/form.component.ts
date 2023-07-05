@@ -27,13 +27,15 @@ export class FormComponent implements OnInit {
   });
   formEscala: FormArray = new FormArray([
     this.formBuilder.group({
-      dia: [0, [Validators.required]],
+      id_escala: '',
+      dia: ['', [Validators.required]],
       horaInicio: ['', [Validators.required]],
       horaFim: ['', [Validators.required]],
     }),
   ]);
   editingItem!: CoordenadorRequestInterface;
   diasDominio: any = [];
+  escalasDeletadas: any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -58,9 +60,9 @@ export class FormComponent implements OnInit {
       });
     });
 
-    this.utilsService.getToggle().subscribe(()=>{
+    this.utilsService.getToggle().subscribe(() => {
       this.edicao = false;
-    })
+    });
   }
 
   getById(value: string) {
@@ -88,15 +90,26 @@ export class FormComponent implements OnInit {
 
   addEscala() {
     this.formEscala.push(
-      this.formBuilder.group({ dia: 0, horaInicio: '', horaFim: '' })
+      this.formBuilder.group({
+        id_escala: '',
+        dia: '',
+        horaInicio: '',
+        horaFim: '',
+      })
     );
   }
 
-  removeEscala(value: number) {
-    this.formEscala.removeAt(value);
+  removeEscala(value: number, item: any) {
+    if (item.value.id_escala === '') {
+      this.formEscala.removeAt(value);
+    } else {
+      this.escalasDeletadas.push(item.value.id_escala);
+      this.formEscala.removeAt(value);
+    }
   }
 
   montarObjeto(value?: number) {
+    console.log(value);
     return !value
       ? {
           coordenador: this.coordenadorForm.value,
@@ -111,7 +124,12 @@ export class FormComponent implements OnInit {
   resetarForm() {
     this.coordenadorForm.reset();
     this.formEscala = new FormArray([
-      this.formBuilder.group({ dia: 0, horaInicio: '', horaFim: '' }),
+      this.formBuilder.group({
+        id_escala: '',
+        dia: 0,
+        horaInicio: '',
+        horaFim: '',
+      }),
     ]);
   }
 
@@ -154,6 +172,7 @@ export class FormComponent implements OnInit {
   }
 
   submitEdit() {
+    this.deleteEscalas();
     this.coordenadorRepository
       .updateCoordenador(
         this.editingItem.coordenador.id!,
@@ -188,5 +207,29 @@ export class FormComponent implements OnInit {
             }, 3000);
           });
       });
+  }
+
+  deleteEscalas() {
+    if (this.escalasDeletadas.length > 0) {
+      this.escalasDeletadas.forEach((element: any) => {
+        this.coordenadorRepository
+          .deleteEscalas(element)
+          .subscribe((res) => {});
+      });
+      this.utilsService.getCoordenadores().subscribe(() => {
+        this.coordenadorRepository.getAllCoordenadores().subscribe((res) => {
+          this.coordenadoresDominio = res;
+        });
+      });
+    }
+    this.escalasDeletadas = [];
+  }
+
+  disableButtonSave() {
+    if (this.editingItem) {
+      return JSON.stringify(this.editingItem.escalas) === JSON.stringify(this.formEscala.value);
+    }else{
+      return this.coordenadorForm.invalid || this.formEscala.invalid
+    }
   }
 }

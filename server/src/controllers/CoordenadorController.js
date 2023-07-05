@@ -101,37 +101,39 @@ module.exports = {
 
   updateCoordenador: async (req, res) => {
     let json = { error: "", result: {} };
-
     let coordenador = req.body.coordenador;
     let escala = req.body.escalas;
-
-    let coord = await CoordenadorService.getByIdCoordenador(coordenador.id);
-    let escalas = await CoordenadorService.getByIdEscalas(coordenador.id);
-
-    let returnObj = { coordenador: coord[0], escalas };
 
     escalaUpdate = [];
     escalaInsert = [];
 
-    returnObj.escalas.forEach((element) => {
-      escalaUpdate.push(escala.filter((e) => JSON.stringify(element) === JSON.stringify(e))[0]);
-      escalaInsert.push(escala.filter((e) => JSON.stringify(element) !== JSON.stringify(e))[0]);
+    escala.forEach((element) => {
+      if(element.id_escala !== ''){
+        escalaUpdate.push(element)
+      }else{
+        escalaInsert.push(element)
+      }
     });
 
-    if(escalaUpdate){
+    if(escalaUpdate.length > 0){
       CoordenadorService.updateEscalas(coordenador.id, escalaUpdate)
     }
-
-    console.log(escalaUpdate);
-    // console.log(escalaInsert);
-
+    if(escalaInsert.length > 0){
+      CoordenadorService.saveEscala(coordenador.id, escalaInsert);
+    }
     res.json(json);
   },
 
   delete: async (req, res) => {
     let json = { error: "", result: {} };
-    await CoordenadorService.deleteEscalas(req.params.id);
+    await CoordenadorService.deleteEscalasByCoord(req.params.id);
     await CoordenadorService.deleteCoordenadores(req.params.id);
+    res.json(json);
+  },
+
+  deleteEscalas: async (req, res) => {
+    let json = { error: "", result: {} };
+    await CoordenadorService.deleteEscala(req.params.id);
     res.json(json);
   },
 };

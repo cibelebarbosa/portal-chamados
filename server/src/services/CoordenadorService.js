@@ -60,7 +60,7 @@ module.exports = {
   getByIdEscalas: (id) => {
     return new Promise((resolve, reject) => {
       db.query(
-        "SELECT dia, horaInicio, horaFim FROM escalas where id_coordenador = ?",
+        "SELECT id_escala, dia, horaInicio, horaFim FROM escalas where id_coordenador = ?",
         [id],
         (error, results) => {
           if (error) {
@@ -129,12 +129,11 @@ module.exports = {
   },
 
   updateEscalas: (id, escala) => {
-    console.log(escala);
     return new Promise((resolve, reject) => {
       escala.forEach((e) => {
         db.query(
-          "UPDATE escalas SET horaInicio = ?, horaFim = ? WHERE id_coordenador = ? and dia = ?",
-          [e.horaInicio, e.horaFim, id, e.dia],
+          "UPDATE escalas SET dia = ?, horaInicio = ?, horaFim = ? WHERE id_coordenador = ? and id_escala = ?",
+          [e.dia, e.horaInicio, e.horaFim, id, e.id_escala],
           (error, results) => {
             if (error) {
               reject(error);
@@ -160,9 +159,22 @@ module.exports = {
     });
   },
   
-  deleteEscalas: (id) => {
+  deleteEscalasByCoord: (id) => {
     return new Promise((resolve, reject) => {
       db.query("delete from escalas WHERE id_coordenador = ?", 
+      [id], (error, results) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve(results);
+      });
+    });
+  },
+
+  deleteEscala: (id) => {
+    return new Promise((resolve, reject) => {
+      db.query("delete from escalas WHERE id_escala = ?", 
       [id], (error, results) => {
         if (error) {
           reject(error);

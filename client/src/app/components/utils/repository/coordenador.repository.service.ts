@@ -36,4 +36,8 @@ export class CoordenadorRepositoryService {
   deleteCoordenadores(id: any): Observable<any> {
     return this.http.delete(`${this.apiUrl}/coordenadores/${id}`);
   }
+
+  deleteEscalas(id: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/escalas/${id}`);
+  }
 }

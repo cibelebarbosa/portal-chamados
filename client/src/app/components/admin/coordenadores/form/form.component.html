@@ -65,24 +65,24 @@
                 <div class="form-outline">
 
                   <select class="form-select" formControlName="dia">
-                    <option value="0" selected>Selecione um dia</option>
+                    <option value="" selected>Selecione um dia</option>
                     <option *ngFor="let item of diasDominio" [value]="item.dia">{{ item.dia }}</option>
                   </select>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-outline">
-                  <input type="email" class="form-control" formControlName="horaInicio" placeholder="Horário inicial" mask="00:00" />
+                  <input type="text" class="form-control" formControlName="horaInicio" placeholder="Horário inicial" mask="00:00" />
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-outline">
-                  <input type="email" class="form-control" formControlName="horaFim" placeholder="Horário final" mask="00:00"/>
+                  <input type="text" class="form-control" formControlName="horaFim" placeholder="Horário final" mask="00:00"/>
                 </div>
               </div>
-              <div *ngIf="mode === 'incluir'" class="col-md-2">
+              <div class="col-md-2">
                 <div class="form-outline mt-2">
-                  <mat-icon *ngIf="index !== 0" class="add_icon" fontIcon="remove_circle_outline" (click)="removeEscala(index)"></mat-icon>
+                  <mat-icon *ngIf="index !== 0" class="add_icon" fontIcon="remove_circle_outline" (click)="removeEscala(index, escalaForm)"></mat-icon>
                   <mat-icon
                     *ngIf="index === formEscala.controls.length - 1 && formEscala.controls.length <= 5"
                     class="add_icon"
@@ -99,7 +99,7 @@
           <button
             *ngIf="mode === 'editar'"
             type="button"
-            class="btn btn-danger col-md-2"
+            class="btn btn-danger col-md-3"
             (click)="delete()"
           >
             Deletar
@@ -107,9 +107,9 @@
           <button
             [ngClass]="mode === 'editar' ? 'button_margin' : ''"
             type="button"
-            class="btn btn-primary col-md-2"
+            class="btn btn-primary col-md-3"
             (click)="mode === 'incluir' ? submitInclude() : submitEdit()"
-
+          [disabled]="disableButtonSave()"
           >
             {{ mode === "incluir" ? "Cadastrar" : "Salvar" }}
           </button>

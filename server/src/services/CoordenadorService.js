@@ -60,7 +60,7 @@ module.exports = {
   getByIdEscalas: (id) => {
     return new Promise((resolve, reject) => {
       db.query(
-        "SELECT * FROM escalas where id_coordenador = ?",
+        "SELECT dia, horaInicio, horaFim FROM escalas where id_coordenador = ?",
         [id],
         (error, results) => {
           if (error) {
@@ -129,6 +129,7 @@ module.exports = {
   },
 
   updateEscalas: (id, escala) => {
+    console.log(escala);
     return new Promise((resolve, reject) => {
       escala.forEach((e) => {
         db.query(

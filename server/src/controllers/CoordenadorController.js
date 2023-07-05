@@ -102,27 +102,28 @@ module.exports = {
   updateCoordenador: async (req, res) => {
     let json = { error: "", result: {} };
 
-    let id = req.params.id;
-    let nome = req.body.nome;
-    let email = req.body.email;
-    let escala = req.body.escala.filter((n) => n);
+    let coordenador = req.body.coordenador;
+    let escala = req.body.escalas;
 
-    if (
-      id &&
-      nome !== undefined &&
-      email !== undefined &&
-      escala !== undefined
-    ) {
-      await CoordenadorService.updateEscalas(id, escala);
-      json.result = {
-        id,
-        nome,
-        email,
-        escala,
-      };
-    } else {
-      json.error = "Campos inválidos";
+    let coord = await CoordenadorService.getByIdCoordenador(coordenador.id);
+    let escalas = await CoordenadorService.getByIdEscalas(coordenador.id);
+
+    let returnObj = { coordenador: coord[0], escalas };
+
+    escalaUpdate = [];
+    escalaInsert = [];
+
+    returnObj.escalas.forEach((element) => {
+      escalaUpdate.push(escala.filter((e) => JSON.stringify(element) === JSON.stringify(e))[0]);
+      escalaInsert.push(escala.filter((e) => JSON.stringify(element) !== JSON.stringify(e))[0]);
+    });
+
+    if(escalaUpdate){
+      CoordenadorService.updateEscalas(coordenador.id, escalaUpdate)
     }
+
+    console.log(escalaUpdate);
+    // console.log(escalaInsert);
 
     res.json(json);
   },

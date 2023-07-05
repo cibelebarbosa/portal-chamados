@@ -75,7 +75,7 @@ export class FormComponent implements OnInit {
         }
       );
       this.formEscala.patchValue(res.result.escalas);
-      this.disableInputs();
+      // this.disableInputs();
     });
     this.coordenadorForm.disable();
   }

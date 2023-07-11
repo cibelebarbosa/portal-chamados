@@ -21,11 +21,23 @@ export class CoordenadorRepositoryService {
     return this.http.get(`${this.apiUrl}/coordenadores`);
   }
 
+  getAllDiasDominio(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/diadominio`);
+  }
+
+  getAllCoordenadoresByFilters(dia: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/coordenadores?dia=${dia}`);
+  }
+
   getByIdCoordenadores(id: any): Observable<any> {
     return this.http.get(`${this.apiUrl}/coordenadores/${id}`);
   }
 
   deleteCoordenadores(id: any): Observable<any> {
     return this.http.delete(`${this.apiUrl}/coordenadores/${id}`);
+  }
+
+  deleteEscalas(id: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/escalas/${id}`);
   }
 }

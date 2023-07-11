@@ -60,7 +60,7 @@ module.exports = {
   getByIdEscalas: (id) => {
     return new Promise((resolve, reject) => {
       db.query(
-        "SELECT * FROM escalas where id_coordenador = ?",
+        "SELECT id_escala, dia, horaInicio, horaFim FROM escalas where id_coordenador = ?",
         [id],
         (error, results) => {
           if (error) {
@@ -79,7 +79,46 @@ module.exports = {
 
   getAllCoordenadores: () => {
     return new Promise((resolve, reject) => {
-      db.query("SELECT * FROM coordenadores", (error, results) => {
+      db.query("SELECT * FROM coordenadores where id != 1", (error, results) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve(results);
+      });
+    });
+  },
+
+  getAllDiasDominio: () => {
+    return new Promise((resolve, reject) => {
+      db.query("SELECT * FROM diaSemana", (error, results) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve(results);
+      });
+    });
+  },
+
+  getAllCoordenadoresEscalasByDia: (dia) => {
+    return new Promise((resolve, reject) => {
+      db.query("SELECT id, nome, id_coordenador, dia, horaInicio, horaFim FROM coordenadores INNER JOIN escalas ON id_coordenador = id where dia = ?",
+      [dia], 
+      (error, results) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve(results);
+      });
+    });
+  },
+
+  getAllCoordenadoresEscalas: () => {
+    return new Promise((resolve, reject) => {
+      db.query("SELECT id, nome, id_coordenador, dia, horaInicio, horaFim FROM coordenadores INNER JOIN escalas ON id_coordenador = id",
+      (error, results) => {
         if (error) {
           reject(error);
           return;
@@ -93,8 +132,8 @@ module.exports = {
     return new Promise((resolve, reject) => {
       escala.forEach((e) => {
         db.query(
-          "UPDATE escalas SET horaInicio = ?, horaFim = ? WHERE id_coordenador = ? and dia = ?",
-          [e.horaInicio, e.horaFim, id, e.dia],
+          "UPDATE escalas SET dia = ?, horaInicio = ?, horaFim = ? WHERE id_coordenador = ? and id_escala = ?",
+          [e.dia, e.horaInicio, e.horaFim, id, e.id_escala],
           (error, results) => {
             if (error) {
               reject(error);
@@ -120,9 +159,22 @@ module.exports = {
     });
   },
   
-  deleteEscalas: (id) => {
+  deleteEscalasByCoord: (id) => {
     return new Promise((resolve, reject) => {
       db.query("delete from escalas WHERE id_coordenador = ?", 
+      [id], (error, results) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve(results);
+      });
+    });
+  },
+
+  deleteEscala: (id) => {
+    return new Promise((resolve, reject) => {
+      db.query("delete from escalas WHERE id_escala = ?", 
       [id], (error, results) => {
         if (error) {
           reject(error);

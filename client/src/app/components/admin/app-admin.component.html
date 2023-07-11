@@ -1,5 +1,5 @@
 <app-navbar pageTitle="Administrador" [drawer]="drawer"></app-navbar>
-<mat-drawer-container class="example-container" autosize>
+<mat-drawer-container autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
     <!-- prettier-ignore -->
     <ul class="list-group list-group-flush" style="border: none;">
@@ -24,7 +24,7 @@
     </ul>
   </mat-drawer>
 
-  <div class="example-sidenav-content">
+  <div class="mb-5" (click)="drawer.toggle(false)">
     <app-chamados *ngIf="conteudo === 0"></app-chamados>
     <app-coordenadores *ngIf="conteudo === 1"></app-coordenadores>
     <app-relatorio *ngIf="conteudo === 3"></app-relatorio>

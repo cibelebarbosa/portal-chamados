@@ -15,6 +15,7 @@ export class ChamadosComponent implements OnInit {
   @Input() coordenadorId: number = 0;
   @ViewChild(ModalComponent, { static: true }) child!: ModalComponent;
   chamadosList: Array<ChamadoInterface> = [];
+  notFound: boolean = false;
 
   constructor(
     private chamadosRepository: ChamadosRepositoryService,
@@ -36,16 +37,19 @@ export class ChamadosComponent implements OnInit {
   carregarLista() {
     this.chamadosRepository.getAllChamados().subscribe((res: any) => {
       this.chamadosList = res.result;
+      this.chamadosList.length === 0 ? this.notFound = true : this.notFound = false;
     });
   }
 
   carregarListaCoordenador(id: number) {
     this.chamadosRepository.getAllByIdChamados(id).subscribe((res: any) => {
       this.chamadosList = res.result;
+      this.chamadosList.length === 0 ? this.notFound = true : this.notFound = false;
     });
   }
 
   carregarListaFiltrada(data: number) {
+    this.notFound = false;
     if (this.coordenadorId) {
       if (data === 3) {
         this.carregarListaCoordenador(this.coordenadorId);
@@ -55,6 +59,7 @@ export class ChamadosComponent implements OnInit {
         this.chamadosList = data.result.filter(
           (e: any) => e.coordenador == this.coordenadorId
         );
+        this.chamadosList.length === 0 ? this.notFound = true : this.notFound = false;
       });
     } else {
       if (data === 3) {
@@ -63,6 +68,7 @@ export class ChamadosComponent implements OnInit {
       }
       this.chamadosRepository.getAllByFiltersChamados(data).subscribe((data) => {
         this.chamadosList = data.result;
+        this.chamadosList.length === 0 ? this.notFound = true : this.notFound = false;
       });
     }
   }

@@ -2,21 +2,13 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NavbarComponent } from './app-navbar.component';
-import { SidenavModule } from '../sidenav/sidenav.module';
 import { MaterialModule } from 'src/app/material.module';
 
-
 @NgModule({
-  declarations: [
-    NavbarComponent
-  ],
-  imports: [
-    BrowserModule,
-    CommonModule,
-    SidenavModule, MaterialModule
-  ],
+  declarations: [NavbarComponent],
+  imports: [BrowserModule, CommonModule, MaterialModule],
   providers: [],
   bootstrap: [],
-  exports: [NavbarComponent]
+  exports: [NavbarComponent],
 })
-export class NavbarModule { }
+export class NavbarModule {}

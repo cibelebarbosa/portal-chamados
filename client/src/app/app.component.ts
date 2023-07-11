@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,9 @@ export class AppComponent implements OnInit {
   showFiller = false;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    moment.locale('pt-br');
+  }
 
   displayStyle = "none";
 

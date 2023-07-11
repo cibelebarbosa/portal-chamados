@@ -58,7 +58,7 @@ section {
 }
 
 .mat-expansion-panel {
-  display: inherit;
+  background-color: #f58220;
 }
 
 .mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover{
@@ -72,4 +72,7 @@ mat-panel-description{
 
 .mat-drawer.mat-drawer-side{
   z-index: auto;
+}
+::ng-deep .mat-drawer-content {
+  min-height: 86.5vh !important;
 }

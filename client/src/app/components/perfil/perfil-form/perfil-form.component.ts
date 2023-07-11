@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -8,6 +8,7 @@ import {
 import { UtilsService } from '../../utils/services/utils.service';
 import { CoordenadorRepositoryService } from '../../utils/repository/coordenador.repository.service';
 import { ChamadosRepositoryService } from '../../utils/repository/chamados.repository.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-perfil-form',
@@ -16,8 +17,9 @@ import { ChamadosRepositoryService } from '../../utils/repository/chamados.repos
 })
 export class PerfilFormComponent implements OnInit {
   msgError = '';
-  sucesso: boolean = false;
-  coordenadoresDominio: any = [];
+  isOpenMsg = '';
+  isOpen = false;
+  @Input() coordenadores: any = [];
   perfilForm: FormGroup = this.formBuilder.group({
     aluno: ['', [Validators.required]],
     ra: ['', [Validators.required]],
@@ -35,16 +37,10 @@ export class PerfilFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.coordenadorRepository.getAllCoordenadores().subscribe((res) => {
-      this.coordenadoresDominio = res;
-    });
 
-    this.utilsService.getCoordenadores().subscribe(() => {
-      this.coordenadorRepository.getAllCoordenadores().subscribe((res) => {
-        this.coordenadoresDominio = res;
-      });
-    });
   }
+
+
 
   montarEmail(value: any) {
     let email = `<h1>Chamado aberto com sucesso</h1>
@@ -54,7 +50,7 @@ export class PerfilFormComponent implements OnInit {
     <h3>Chamado: ${value.titulo}</h3>
     <p>Descrição: ${value.descricao}</p>
     <p>Coordenador: ${
-      this.coordenadoresDominio.filter(
+      this.coordenadores.filter(
         (e: any) => e.id === value.coordenador
       )[0].nome
     }</p>`;
@@ -74,18 +70,19 @@ export class PerfilFormComponent implements OnInit {
 
     this.chamadosRepository.saveChamados(formValues).subscribe((data) => {
       if (!data.error) {
-        this.sucesso = true;
+        this.isOpen = true;
+        this.isOpenMsg = 'Seu chamado foi criado com sucesso.';
         setTimeout(() => {
-          this.sucesso = false;
+          this.isOpen = false;
         }, 3000);
         this.perfilForm.reset();
         this.perfilForm.get('coordenador')?.setValue('');
         this.utilsService.setChamados(true);
       } else {
-        this.sucesso = false;
+        this.isOpen = false;
       }
 
-      if (this.sucesso) {
+      if (this.isOpen) {
         this.chamadosRepository
           .enviarEmail(formValues.email, this.montarEmail(formValues))
           .subscribe(() => {});

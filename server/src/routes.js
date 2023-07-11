@@ -22,6 +22,9 @@ router.get("/coordenadores", CoordenadorController.getAllCoordenadores)
 router.get("/coordenadores/:id", CoordenadorController.getById)
 router.put("/coordenadores/:id", CoordenadorController.updateCoordenador);
 router.delete("/coordenadores/:id", CoordenadorController.delete);
+router.delete("/escalas/:id", CoordenadorController.deleteEscalas);
+
+router.get("/diadominio", CoordenadorController.getAllDiasDominio)
 
 router.post("/send", NodemailerController.sendEmail)
 

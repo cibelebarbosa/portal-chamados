@@ -1,12 +1,13 @@
 <div class="bg-light">
   <app-navbar pageTitle="Perfil"></app-navbar>
-
-  <div class="container-md d-flex justify-content-between col-md-12">
-    <div class="mt-5 col-md-6">
-      <app-perfil-form [coordenadores]="coordenadores"></app-perfil-form>
-    </div>
-    <div class="mt-5 col-md-4">
-      <app-perfil-chamados [coordenadores]="coordenadores"></app-perfil-chamados>
+  <div class="container">
+    <div class="mt-5 row justify-content-between">
+      <div class="col-sm-12 col-md-6">
+        <app-perfil-form [coordenadores]="coordenadores"></app-perfil-form>
+      </div>
+      <div class="col-sm-12 col-md-5">
+        <app-perfil-chamados [coordenadores]="coordenadores"></app-perfil-chamados>
+      </div>
     </div>
   </div>
 </div>

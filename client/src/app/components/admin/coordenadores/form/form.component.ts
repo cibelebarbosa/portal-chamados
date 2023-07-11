@@ -109,7 +109,6 @@ export class FormComponent implements OnInit {
   }
 
   montarObjeto(value?: number) {
-    console.log(value);
     return !value
       ? {
           coordenador: this.coordenadorForm.value,
@@ -126,7 +125,7 @@ export class FormComponent implements OnInit {
     this.formEscala = new FormArray([
       this.formBuilder.group({
         id_escala: '',
-        dia: 0,
+        dia: '',
         horaInicio: '',
         horaFim: '',
       }),

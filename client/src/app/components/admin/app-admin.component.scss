@@ -73,3 +73,6 @@ mat-panel-description{
 .mat-drawer.mat-drawer-side{
   z-index: auto;
 }
+::ng-deep .mat-drawer-content {
+  min-height: 86.5vh !important;
+}

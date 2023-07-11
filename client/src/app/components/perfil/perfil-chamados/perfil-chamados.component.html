@@ -1,17 +1,16 @@
 <div class="card">
   <div class="card-header align-self-center bg-white border-primary">
-    Informações
+    Fique ligado!
   </div>
   <div class="card-body">
-    <h5 class="card-title">Fique ligado!</h5>
-    <p class="card-text">Verifique abaixo os coordenadores atendendo hoje!</p>
+    <p class="card-text">Verifique abaixo os coordenadores disponíveis.</p>
     <ul class="list-group">
       <li class="list-group-item" *ngFor="let coordenador of coordenadores">
         Nome: {{coordenador.nome}}, das {{coordenador.horaInicio}} as {{coordenador.horaFim}}.
       </li>
     </ul>
     <br>
-    <p class="card-text">Seu coordenador só estará disponível para abertura de chamados dentro do horário de atendimento do mesmo, verifique a informação acima. </p>
+    <span class="card-text">Atenção: Seu coordenador só estará disponível para abertura de chamados dentro do horário de atendimento descrito acima. </span>
 
   </div>
   <div class="card-footer text-muted align-self-center bg-white border-primary">

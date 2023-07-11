@@ -59,10 +59,13 @@ table {
   background-color: #f36717 !important;
 }
 
-.example-container {
-  // width: 500px;
-  height: 100vh;
-  // border: 1px solid rgba(0, 0, 0, 0.5);
+::ng-deep .container-fluid-custom {
+  display: grid !important;
+  flex-direction: column !important;
+  align-content: space-between !important;
+  height: 100vh !important;
 }
+
+
 
 

@@ -10,6 +10,7 @@ import { UtilsService } from '../utils/services/utils.service';
 })
 export class PerfilComponent implements OnInit {
   coordenadores: any = [];
+
   constructor(
     private coordenadorRepository: CoordenadorRepositoryService,
     private utilsService: UtilsService
@@ -26,9 +27,8 @@ export class PerfilComponent implements OnInit {
     let coordByDia = [];
     const setCoordenadores = new Set();
     moment.locale('pt-br');
-    //moment().format('dddd').toLowerCase()
     // prettier-ignore
-    this.coordenadorRepository.getAllCoordenadoresByFilters('segunda-feira').subscribe((res) => {
+    this.coordenadorRepository.getAllCoordenadoresByFilters(moment().format('dddd').toLowerCase()).subscribe((res) => {
       coordByDia = res.filter((e: any)=> e.horaInicio <= moment().format('LT') && e.horaFim >= moment().format('LT'));
       const coordenadoresFiltrados = coordByDia.filter((e: any) => {
         const duplicatedCoord = setCoordenadores.has(e.id);

@@ -9,6 +9,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { CoordenadoresModule } from './coordenadores/coordenadores.module';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioModule } from './relatorio/relatorio.module';
+import { OverlayMsgModule } from '../shared/overlay-msg/overlay-msg.module';
 
 @NgModule({
   declarations: [AdminComponent],
@@ -20,7 +21,8 @@ import { RelatorioModule } from './relatorio/relatorio.module';
     FooterModule,
     MaterialModule,
     CoordenadoresModule,
-    RelatorioModule
+    RelatorioModule,
+    OverlayMsgModule
   ],
   providers: [],
   bootstrap: [AdminComponent],

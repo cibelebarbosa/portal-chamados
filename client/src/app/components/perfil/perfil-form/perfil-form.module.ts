@@ -5,10 +5,11 @@ import { MaterialModule } from 'src/app/material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
+import { OverlayMsgModule } from '../../shared/overlay-msg/overlay-msg.module';
 
 @NgModule({
   declarations: [PerfilFormComponent],
-  imports: [CommonModule, MaterialModule, BrowserModule, ReactiveFormsModule, NgxMaskModule.forChild()],
+  imports: [CommonModule, MaterialModule, BrowserModule, ReactiveFormsModule, NgxMaskModule.forChild(), OverlayMsgModule],
   exports: [PerfilFormComponent],
 })
 export class PerfilFormModule {}

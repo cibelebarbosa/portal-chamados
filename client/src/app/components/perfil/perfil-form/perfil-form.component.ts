@@ -17,7 +17,8 @@ import * as moment from 'moment';
 })
 export class PerfilFormComponent implements OnInit {
   msgError = '';
-  sucesso: boolean = false;
+  isOpenMsg = '';
+  isOpen = false;
   @Input() coordenadores: any = [];
   perfilForm: FormGroup = this.formBuilder.group({
     aluno: ['', [Validators.required]],
@@ -69,18 +70,19 @@ export class PerfilFormComponent implements OnInit {
 
     this.chamadosRepository.saveChamados(formValues).subscribe((data) => {
       if (!data.error) {
-        this.sucesso = true;
+        this.isOpen = true;
+        this.isOpenMsg = 'Seu chamado foi criado com sucesso.';
         setTimeout(() => {
-          this.sucesso = false;
+          this.isOpen = false;
         }, 3000);
         this.perfilForm.reset();
         this.perfilForm.get('coordenador')?.setValue('');
         this.utilsService.setChamados(true);
       } else {
-        this.sucesso = false;
+        this.isOpen = false;
       }
 
-      if (this.sucesso) {
+      if (this.isOpen) {
         this.chamadosRepository
           .enviarEmail(formValues.email, this.montarEmail(formValues))
           .subscribe(() => {});

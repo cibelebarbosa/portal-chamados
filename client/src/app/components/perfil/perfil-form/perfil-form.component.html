@@ -1,6 +1,4 @@
-<div *ngIf="sucesso" class="alert alert-success" role="alert">
-  Chamado aberto com sucesso. Obrigado!
-</div>
+<app-overlay-msg [isOpen]="isOpen" [isOpenMsg]="isOpenMsg"></app-overlay-msg>
 <div class="card shadow-sm p-3 mb-5 bg-white rounded">
   <div class="card-body">
     <h5 class="card-title">Precisa de ajuda? Fale conosco</h5>

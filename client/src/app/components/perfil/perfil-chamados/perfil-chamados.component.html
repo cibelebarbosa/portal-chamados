@@ -4,12 +4,12 @@
   </div>
   <div class="card-body">
     <p class="card-text">Verifique abaixo os coordenadores disponíveis.</p>
-    <ul class="list-group">
+    <ul class="list-group" *ngIf="coordenadores.length > 0">
       <li class="list-group-item" *ngFor="let coordenador of coordenadores">
         Nome: {{coordenador.nome}}, das {{coordenador.horaInicio}} as {{coordenador.horaFim}}.
       </li>
     </ul>
-    <br>
+    <strong><p *ngIf="coordenadores.length === 0">Nenhum coordenador está atendendo no momento.</p></strong>
     <span class="card-text">Atenção: Seu coordenador só estará disponível para abertura de chamados dentro do horário de atendimento descrito acima. </span>
 
   </div>

@@ -1,7 +1,5 @@
 <div class="container col-md-10 mt-5">
-  <div *ngIf="sucesso.status" class="alert alert-success" role="alert">
-    {{ sucesso.msg }}
-  </div>
+  <app-overlay-msg [isOpen]="isOpen" [isOpenMsg]="isOpenMsg"></app-overlay-msg>
 
   <section *ngIf="mode === 'editar'">
     <select
@@ -54,8 +52,14 @@
       </div>
     </form>
 
-    <div class="card shadow-sm p-3 mb-5 bg-white rounded mt-5 col-md-12 border-primary">
-      <div class="card-header d-flex justify-content-center bg-white border-primary">Horários</div>
+    <div
+      class="card shadow-sm p-3 mb-5 bg-white rounded mt-5 col-md-12 border-primary"
+    >
+      <div
+        class="card-header d-flex justify-content-center bg-white border-primary"
+      >
+        Horários
+      </div>
       <div class="card-body px-5 py-5">
         <!-- prettier-ignore -->
         <section *ngFor="let escalaForm of formEscala.controls; let index = index">
@@ -109,7 +113,7 @@
             type="button"
             class="btn btn-primary col-md-3"
             (click)="mode === 'incluir' ? submitInclude() : submitEdit()"
-          [disabled]="disableButtonSave()"
+            [disabled]="disableButtonSave()"
           >
             {{ mode === "incluir" ? "Cadastrar" : "Salvar" }}
           </button>

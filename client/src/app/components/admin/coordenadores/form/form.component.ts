@@ -18,7 +18,6 @@ export class FormComponent implements OnInit {
   @Input() mode = 'incluir';
   @Input() edicao: boolean = false;
   selectValue: string = '';
-  sucesso: SucessoInterface = { status: false, msg: '' };
   coordenadoresDominio: Array<CoordenadorDominioInterface> = [];
   coordenadorForm: FormGroup = this.formBuilder.group({
     nome: ['', [Validators.required]],
@@ -36,6 +35,8 @@ export class FormComponent implements OnInit {
   editingItem!: CoordenadorRequestInterface;
   diasDominio: any = [];
   escalasDeletadas: any = [];
+  isOpen = false;
+  isOpenMsg = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -92,9 +93,9 @@ export class FormComponent implements OnInit {
     this.formEscala.push(
       this.formBuilder.group({
         id_escala: '',
-        dia: '',
-        horaInicio: '',
-        horaFim: '',
+        dia: ['', [Validators.required]],
+        horaInicio: ['', [Validators.required]],
+        horaFim: ['', [Validators.required]],
       })
     );
   }
@@ -162,10 +163,10 @@ export class FormComponent implements OnInit {
           .subscribe(() => {});
         this.utilsService.setCoordenadores(res);
         this.resetarForm();
-        this.sucesso.msg = 'Coordenador incluido com sucesso!';
-        this.sucesso.status = true;
+        this.isOpenMsg = 'Coordenador incluido com sucesso!';
+        this.isOpen = true;
         setTimeout(() => {
-          this.sucesso.status = false;
+          this.isOpen = false;
         }, 3000);
       });
   }
@@ -178,12 +179,12 @@ export class FormComponent implements OnInit {
         this.montarObjeto(this.editingItem.coordenador.id!)
       )
       .subscribe((res) => {
-        this.sucesso.msg = 'Coordenador alterado com sucesso!';
+        this.isOpen = true;
+        this.isOpenMsg = 'Coordenador alterado com sucesso.';
         this.selectValue = '';
         this.edicao = false;
-        this.sucesso.status = true;
         setTimeout(() => {
-          this.sucesso.status = false;
+          this.isOpen = false;
         }, 3000);
         this.resetarForm();
       });
@@ -196,13 +197,13 @@ export class FormComponent implements OnInit {
         this.coordenadorRepository
           .deleteCoordenadores(this.editingItem.coordenador.id)
           .subscribe((res) => {
-            this.sucesso.msg = 'Coordenador removido com sucesso!';
+            this.isOpenMsg = 'Coordenador removido com sucesso!';
             this.utilsService.setCoordenadores(res);
-            this.sucesso.status = true;
+            this.isOpen = true;
             this.selectValue = '';
             this.edicao = false;
             setTimeout(() => {
-              this.sucesso.status = false;
+              this.isOpen = false;
             }, 3000);
           });
       });
@@ -225,10 +226,13 @@ export class FormComponent implements OnInit {
   }
 
   disableButtonSave() {
-    if (this.editingItem) {
-      return JSON.stringify(this.editingItem.escalas) === JSON.stringify(this.formEscala.value);
-    }else{
-      return this.coordenadorForm.invalid || this.formEscala.invalid
+    if (this.editingItem !== undefined) {
+      return (
+        JSON.stringify(this.editingItem.escalas) ===
+          JSON.stringify(this.formEscala.value) || this.formEscala.invalid
+      );
+    } else {
+      return this.coordenadorForm.invalid || this.formEscala.invalid;
     }
   }
 }

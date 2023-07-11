@@ -79,7 +79,7 @@ module.exports = {
 
   getAllCoordenadores: () => {
     return new Promise((resolve, reject) => {
-      db.query("SELECT * FROM coordenadores", (error, results) => {
+      db.query("SELECT * FROM coordenadores where id != 1", (error, results) => {
         if (error) {
           reject(error);
           return;
